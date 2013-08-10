@@ -1,0 +1,33 @@
+<fieldset>
+  <%= f.input :name %>  
+  <%= f.input :text, as: :text, input_html: {style: 'width: 500px; height:50px;'} %>
+
+  <%= f.check_box :_destroy %>
+  <%= f.label :_destroy, t('general.destroy') %>
+  <div class="form-actions">
+    <div class="control-group string required" style="display: block">
+      <div class="controls">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <%= link_to_add_fields(
+          t('stories.steps.setup_tasks.add_vacancy'), f, :vacancies, target: 'setup_vacancies_input'
+        ) %>
+      </div>
+    </div>
+  </div>
+  
+  <fieldset>
+    <legend><%= t('vacancies.index.title')%></legend>
+    <div id="setup_vacancies_input" class="form-inputs">
+      <%= f.simple_fields_for :vacancies do |vacancy_form| %>
+        <% vacancy_form.object = f.object.vacancy_class.new(task: f.object) if vacancy_form.object.blank? %>
+        <%= render_product_specific_partial_if_available(
+          vacancy_form.object, 'stories/vacancy_fields', f: vacancy_form
+        ) %>
+      <% end %>
+    </div>
+    
+    <%= link_to t('general.remove'), '#', class: 'remove_fields' %>
+  </fieldset>
+</fieldset>
+
+<hr/>
