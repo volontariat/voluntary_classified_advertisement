@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130806131503) do
+ActiveRecord::Schema.define(:version => 20130809134227) do
 
   create_table "areas", :force => true do |t|
     t.string   "ancestry"
@@ -234,6 +234,7 @@ ActiveRecord::Schema.define(:version => 20130806131503) do
     t.string   "state"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.integer  "task_id"
   end
 
   add_index "vacancies", ["offeror_id"], :name => "index_vacancies_on_offeror_id"
