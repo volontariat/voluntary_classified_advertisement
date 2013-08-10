@@ -1,0 +1,5 @@
+en:
+  stories:
+    steps:
+      setup_tasks:
+        add_vacancy: Add Vacancy
