@@ -165,9 +165,25 @@ GEM
       fog (>= 1.8.0)
     awesome_print (1.1.0)
     bcrypt-ruby (3.1.1)
+    better_errors (0.9.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass-rails (2.3.2.1)
       railties (>= 3.1.0)
       sass-rails (>= 3.1.0)
+    brakeman (2.1.0)
+      erubis (~> 2.6)
+      fastercsv (~> 1.5)
+      haml (>= 3.0, < 5.0)
+      highline (~> 1.6.19)
+      multi_json (~> 1.2)
+      ruby2ruby (~> 2.0.5)
+      ruby_parser (~> 3.2.2)
+      sass (~> 3.0)
+      slim (>= 1.3.6, < 3.0)
+      terminal-table (~> 1.4)
     builder (3.0.4)
     cancan (1.6.10)
     capistrano (2.15.5)
@@ -197,6 +213,8 @@ GEM
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     client_side_validations (3.2.5)
+    code_analyzer (0.3.2)
+      sexp_processor
     coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -205,6 +223,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    colored (1.2)
     columnize (0.3.6)
     connection_pool (1.1.0)
     country_select (1.2.0)
@@ -224,6 +243,7 @@ GEM
       cucumber-rails (>= 1.1.1)
     daemons (1.1.9)
     database_cleaner (0.7.1)
+    debug_inspector (0.0.2)
     debugger (1.6.1)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
@@ -307,6 +327,8 @@ GEM
       childprocess (>= 0.2.3)
       guard (>= 1.1)
       spork (>= 0.8.4)
+    haml (4.0.3)
+      tilt
     handlebars_assets (0.14.1)
       execjs (>= 1.2.9)
       sprockets (>= 2.0.3)
@@ -451,6 +473,15 @@ GEM
       i18n (~> 0.5)
     rails_autolink (1.1.0)
       rails (> 3.1)
+    rails_best_practices (1.14.0)
+      activesupport
+      awesome_print
+      code_analyzer
+      colored
+      erubis
+      i18n
+      require_all
+      ruby-progressbar
     railties (3.2.14)
       actionpack (= 3.2.14)
       activesupport (= 3.2.14)
@@ -479,6 +510,7 @@ GEM
       redis (~> 3.0.0)
     ref (1.0.5)
     remotipart (1.2.1)
+    require_all (1.2.1)
     rinku (1.5.1)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
@@ -503,6 +535,11 @@ GEM
       linecache (>= 0.3)
     ruby-hmac (0.4.0)
     ruby-progressbar (1.1.1)
+    ruby2ruby (2.0.6)
+      ruby_parser (~> 3.1)
+      sexp_processor (~> 4.0)
+    ruby_parser (3.2.2)
+      sexp_processor (~> 4.1)
     rubyzip (0.9.9)
     safe_yaml (0.9.4)
     sass (3.2.10)
@@ -516,6 +553,9 @@ GEM
       libwebsocket (~> 0.1.3)
       multi_json (~> 1.0)
       rubyzip
+    sexp_processor (4.2.1)
+    sextant (0.2.4)
+      rails (>= 3.2)
     sidekiq (2.13.0)
       celluloid (>= 0.14.1)
       connection_pool (>= 1.0.0)
@@ -552,6 +592,7 @@ GEM
     stringex (1.5.1)
     subexec (0.2.3)
     temple (0.6.6)
+    terminal-table (1.4.5)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
@@ -597,6 +638,9 @@ DEPENDENCIES
   asset_sync
   auto_html!
   awesome_print
+  better_errors
+  binding_of_caller
+  brakeman
   capistrano
   capistrano-ext
   capistrano_colors
@@ -623,12 +667,14 @@ DEPENDENCIES
   rack-piwik
   rack-rewrite (~> 1.2.1)
   rack-ssl
+  rails_best_practices
   recaptcha
   rspec-instafail (>= 0.1.7)
   rspec-rails (~> 2.0)
   ruby-debug
   selenium-webdriver (~> 2.22.1)
   settingslogic!
+  sextant
   simplecov
   sinatra
   spork (~> 1.0rc2)

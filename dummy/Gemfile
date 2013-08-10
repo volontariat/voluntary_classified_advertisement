@@ -23,6 +23,14 @@ group :development do
   gem "capistrano_colors", :require => false
   gem "capistrano-ext", :require => false
   gem "yard", :require => false
+  
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  # currently raises segmentation fault
+  #gem 'meta_request'
+  gem 'brakeman'
+  gem 'rails_best_practices'
+  gem 'sextant'
 end
 
 group :test do
