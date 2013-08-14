@@ -7,16 +7,12 @@ class Product::ClassifiedAdvertising::Story < Story
     attributes.each do |index, task_attributes|
       destroy = task_attributes.delete :_destroy
       
-      task = if task_attributes[:id].present?
+      if task_attributes[:id].present? && destroy.to_i == 1
+        self.tasks.where(id: task_attributes[:id]).destroy_all
+      elsif task_attributes[:id].present?
         tasks.find(task_attributes[:id]).update_attributes(task_attributes)
       else
-        tasks.create(task_attributes)
-      end
-      
-      if destroy && !task.new_record?
-        tasks.destroy(task.id)
-      else
-        self.tasks << task
+        self.tasks.build(task_attributes)
       end
     end
   end
