@@ -6,4 +6,5 @@ dummy/log/*.log
 dummy/tmp/
 dummy/.sass-cache
 dummy/db/structure.sql
+dummy/config/database.yml
 .rvmrc
