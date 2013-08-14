@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-rails', '~> 2.0' 
   
   # group :test
+=begin  
   s.add_development_dependency 'capybara', '~> 1.1.2'
   s.add_development_dependency 'capybara-webkit'
   s.add_development_dependency 'cucumber-rails', '1.3.0'
@@ -42,6 +43,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'guard-spork'
   s.add_development_dependency 'guard-cucumber'
   s.add_development_dependency 'launchy'
+=end
 
   # group :cucumber, :test
   s.add_development_dependency 'database_cleaner', '0.7.1'

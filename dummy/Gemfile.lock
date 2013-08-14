@@ -109,7 +109,7 @@ PATH
       will_paginate
 
 PATH
-  remote: /Users/mcberros/workspace/voluntary_classified_advertising
+  remote: /Users/gawlim/workspace/voluntary/voluntary_classified_advertising
   specs:
     voluntary_classified_advertising (0.0.1)
       voluntary (= 0.1.0.rc2)
