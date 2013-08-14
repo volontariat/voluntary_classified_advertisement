@@ -1,43 +1,45 @@
 class Product::ClassifiedAdvertising::Task < ::Task
   belongs_to :story, class_name: 'Product::ClassifiedAdvertising::Story', inverse_of: :task
   
-  #accepts_nested_attributes_for :vacancies, allow_destroy: true, reject_if: ->(v) { v['name'].blank? && v['text'].blank? }
   attr_accessible :vacancies_attributes
   attr_writer :vacancies
   
+  validates :text, presence: true
+  
   validate :at_least_one_vacancy
   
-  #after_initialize :initialize_vacancies
   after_save :save_dependencies
+  after_destroy :destroy_non_mongodb_records
   
   def vacancies
-    @vacancies ||= new_record? ? [vacancy_class.new(task: self)] : vacancy_class.where(task_id: id)
+    @vacancies ||= new_record? ? [vacancy_class.new(task: self)] : vacancy_class.where(task_id: id.to_s)
   end
   
-  def vacancies_attributes=(attributes)
-    self.vacancies ||= []
+  def vacancies_attributes=(attributes = {})
+    self.vacancies = [] if self.vacancies.length == 1 && self.vacancies.first.new_record?
     
-    attributes.each do |index, vacancy_attributes|
+    attributes.select{|k,v| v[:name].present? && v[:text].present? }.each do |index, vacancy_attributes|
       destroy = vacancy_attributes.delete :_destroy
       vacancy_attributes[:task] = self
+      vacancy = nil
       
-      vacancy = if vacancy_attributes[:id].present?
-        vacancy_class.find(vacancy_attributes[:id]).update_attributes(vacancy_attributes)
+      if vacancy_attributes[:id].present? && destroy.to_i == 1
+        begin; vacancy_class.destroy(vacancy_attributes[:id]); rescue ActiveRecord::RecordNotFound; end
+        @vacancies.select!{|v| v.id != vacancy_attributes[:id]}
+      elsif vacancy_attributes[:id].present?
+        begin; vacancy = vacancy_class.find(vacancy_attributes[:id]); rescue ActiveRecord::RecordNotFound; end
+        vacancy.update_attributes(vacancy_attributes) if vacancy.present?
       else
-        vacancy_class.new(vacancy_attributes)
+        vacancy = vacancy_class.new(vacancy_attributes)
       end
       
-      if destroy && !vacancy.new_record?
-        vacancy_class.destroy(vacancy.id)
-      else
-        self.vacancies << vacancy
-      end
+      self.vacancies << vacancy if vacancy.present? && !self.vacancies.include?(vacancy)
     end
   end
   
-  #def vacancies_attributes
-  #  @vacancies_attributes ||= (vacancies.empty? ? [vacancy_class.new(task: self)] : vacancies).map{|v| v.attributes}
-  #end
+  def vacancies_attributes
+    @vacancies_attributes ||= (vacancies.empty? ? [vacancy_class.new(task: self)] : vacancies).map{|v| v.attributes}
+  end
   
   def vacancy_class
     if product_id.present?
@@ -46,10 +48,6 @@ class Product::ClassifiedAdvertising::Task < ::Task
       ::Product::ClassifiedAdvertising::Vacancy
     end
   end
-  
-  #def initialize_vacancies
-  #  vacancies_attributes 
-  #end
   
   private
   
@@ -60,7 +58,13 @@ class Product::ClassifiedAdvertising::Task < ::Task
   end
   
   def save_dependencies
-    puts "save_dependencies: " + [@vacancies.try(:length), vacancies.try(:length)].inspect
-    vacancies.select(&:new_record?).map(&:save)
+    vacancies.select(&:new_record?).each do |vacancy|
+      vacancy.task = self
+      vacancy.do_open
+    end
+  end
+  
+  def destroy_non_mongodb_records
+    vacancies.destroy_all
   end
 end

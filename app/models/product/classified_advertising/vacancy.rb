@@ -1,7 +1,7 @@
 class Product::ClassifiedAdvertising::Vacancy < ::Vacancy
   attr_accessible :task_id, :task
   
-  validates :task_id, presence: true
+  validates :task, presence: true
   
   def product
     task.try(:product)
@@ -12,7 +12,8 @@ class Product::ClassifiedAdvertising::Vacancy < ::Vacancy
   end
   
   def task=(value)
-    task_id = value.try(:id)
+    self.task_id = value.try(:id).try(:to_s)
+    
     @task = value
   end
   
