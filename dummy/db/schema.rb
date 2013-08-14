@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130809134227) do
+ActiveRecord::Schema.define(:version => 20130813161825) do
 
   create_table "areas", :force => true do |t|
     t.string   "ancestry"
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(:version => 20130809134227) do
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "mongo_db_documents", :force => true do |t|
-    t.integer  "mongo_db_object_id"
+    t.string   "mongo_db_object_id"
     t.string   "klass_name"
     t.string   "name"
     t.string   "slug"
@@ -234,7 +234,7 @@ ActiveRecord::Schema.define(:version => 20130809134227) do
     t.string   "state"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
-    t.integer  "task_id"
+    t.string   "task_id"
   end
 
   add_index "vacancies", ["offeror_id"], :name => "index_vacancies_on_offeror_id"
