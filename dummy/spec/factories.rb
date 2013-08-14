@@ -16,7 +16,6 @@ end
 
 FactoryGirl.define do
   # Core factories begin
-  
   factory :user do
     sequence(:name) { |n| "user#{n}#{r_str}" }
     sequence(:email) { |n| "user#{n}#{r_str}@volontari.at" }
@@ -36,8 +35,8 @@ FactoryGirl.define do
   factory :area do
     sequence(:name) { |n| "area #{n}" }
   end
-  
   # Core factories end 
+  
   factory :product do
     name 'Dummy'
     user_id FactoryGirl.create(:user, password: 'password', password_confirmation: 'password').id
@@ -87,6 +86,26 @@ FactoryGirl.define do
     
     factory :classified_advertising_story, class: Product::ClassifiedAdvertising::Story do
       association :project, factory: :classified_advertising_project
+    end
+  end
+  
+  factory :task do
+    sequence(:name) { |n| "task#{n}#{r_str}" }
+    text Faker::Lorem.sentences(10).join(' ')
+    
+    factory :classified_advertising_task, class: Product::ClassifiedAdvertising::Task do
+    end
+  end
+  
+  factory :vacancy do
+    association :project
+    sequence(:name) { |n| "vacancy #{n}" }
+    text Faker::Lorem.sentences(20).join(' ')
+    limit 1
+    state 'open'
+    
+    factory :classified_advertising_vacancy, class: Product::ClassifiedAdvertising::Vacancy do
+      association :task
     end
   end
 end
