@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130813161825) do
+ActiveRecord::Schema.define(:version => 20130826143823) do
 
   create_table "areas", :force => true do |t|
     t.string   "ancestry"
@@ -49,18 +49,17 @@ ActiveRecord::Schema.define(:version => 20130813161825) do
   create_table "candidatures", :force => true do |t|
     t.integer  "vacancy_id"
     t.integer  "offeror_id"
-    t.integer  "user_id"
     t.string   "name"
     t.string   "slug"
     t.text     "text"
     t.string   "state"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "resource_id"
+    t.string   "resource_type"
   end
 
   add_index "candidatures", ["slug"], :name => "index_candidatures_on_slug", :unique => true
-  add_index "candidatures", ["user_id", "vacancy_id"], :name => "index_candidatures_on_user_id_and_vacancy_id", :unique => true
-  add_index "candidatures", ["user_id"], :name => "index_candidatures_on_user_id"
   add_index "candidatures", ["vacancy_id", "name"], :name => "index_candidatures_on_vacancy_id_and_name", :unique => true
   add_index "candidatures", ["vacancy_id"], :name => "index_candidatures_on_vacancy_id"
 
@@ -225,7 +224,6 @@ ActiveRecord::Schema.define(:version => 20130813161825) do
     t.integer  "project_id"
     t.integer  "offeror_id"
     t.integer  "author_id"
-    t.integer  "user_id"
     t.integer  "project_user_id"
     t.string   "name"
     t.string   "slug"
@@ -235,6 +233,8 @@ ActiveRecord::Schema.define(:version => 20130813161825) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.string   "task_id"
+    t.integer  "resource_id"
+    t.string   "resource_type"
   end
 
   add_index "vacancies", ["offeror_id"], :name => "index_vacancies_on_offeror_id"
@@ -242,6 +242,5 @@ ActiveRecord::Schema.define(:version => 20130813161825) do
   add_index "vacancies", ["project_id"], :name => "index_vacancies_on_project_id"
   add_index "vacancies", ["project_user_id"], :name => "index_vacancies_on_project_user_id"
   add_index "vacancies", ["slug"], :name => "index_vacancies_on_slug", :unique => true
-  add_index "vacancies", ["user_id"], :name => "index_vacancies_on_user_id"
 
 end
