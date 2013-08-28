@@ -1,4 +1,5 @@
 .bundle/
+Gemfile.lock
 log/*.log
 pkg/
 dummy/db/*.sqlite3
@@ -7,4 +8,5 @@ dummy/tmp/
 dummy/.sass-cache
 dummy/db/structure.sql
 dummy/config/database.yml
+dummy/Gemfile.lock
 .rvmrc
