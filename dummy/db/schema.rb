@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130826143823) do
+ActiveRecord::Schema.define(:version => 20130830171113) do
 
   create_table "areas", :force => true do |t|
     t.string   "ancestry"
@@ -45,6 +45,13 @@ ActiveRecord::Schema.define(:version => 20130826143823) do
   add_index "areas_users", ["area_id", "user_id"], :name => "index_areas_users_on_area_id_and_user_id", :unique => true
   add_index "areas_users", ["area_id"], :name => "index_areas_users_on_area_id"
   add_index "areas_users", ["user_id"], :name => "index_areas_users_on_user_id"
+
+  create_table "assets", :force => true do |t|
+    t.string   "name"
+    t.text     "text"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "candidatures", :force => true do |t|
     t.integer  "vacancy_id"
