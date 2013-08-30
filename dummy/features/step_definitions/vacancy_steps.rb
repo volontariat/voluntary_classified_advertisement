@@ -1,6 +1,10 @@
 module VacancyFactoryMethods
   def set_vacancy_defaults(attributes)
-    attributes[:user_id] ||= @me.id unless attributes[:user_id] || !@me
+    unless attributes[:resource] || attributes[:resource_id] || !@me
+      attributes[:resource_type] ||= 'User'
+      attributes[:resource_id] ||= @me.id 
+    end
+    
     attributes[:project_id] ||= Project.last.id unless attributes[:project_id] || Project.all.none?
   end
   
@@ -10,7 +14,7 @@ module VacancyFactoryMethods
     
     set_vacancy_defaults(attributes)
     
-    @vacancy = Factory(:vacancy, attributes)
+    @vacancy = FactoryGirl.create(:vacancy, attributes)
     @vacancy.reload
   end
 end

@@ -99,6 +99,7 @@ FactoryGirl.define do
   
   factory :vacancy do
     association :project
+    association :resource, factory: :user
     sequence(:name) { |n| "vacancy #{n}" }
     text Faker::Lorem.sentences(20).join(' ')
     limit 1

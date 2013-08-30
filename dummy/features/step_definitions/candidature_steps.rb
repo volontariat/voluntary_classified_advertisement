@@ -1,6 +1,10 @@
 module CandidatureFactoryMethods
   def set_candidature_defaults(attributes)
-    attributes[:user_id] ||= @me.id unless attributes[:user] || attributes[:user_id] || !@me
+    unless attributes[:resource] || attributes[:resource_id] || !@me
+      attributes[:resource_type] ||= 'User'
+      attributes[:resource_id] ||= @me.id 
+    end
+    
     attributes[:vacancy_id] ||= Vacancy.last.id unless attributes[:vacancy_id] || Vacancy.all.none?
     attributes[:offeror_id] ||= Vacancy.find(attributes[:vacancy_id]).project.user_id if attributes[:vacancy_id]
   end
@@ -11,7 +15,7 @@ module CandidatureFactoryMethods
     
     set_candidature_defaults(attributes)
     
-    @candidature = Factory(:candidature, attributes)
+    @candidature = FactoryGirl.create(:candidature, attributes) 
     
     @candidature.reload
   end
