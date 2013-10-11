@@ -1,16 +1,5 @@
-<tr>
-  <th>Resource name</th>
-  <th>Resource text</th>
-  <th>Resource type</th>
-  <th></th>
-  <th></th>
-</tr>
-<tr>
-  <td><%= f.object.resource_type == 'User' ? User.find(f.object.resource_id).name : Asset.find(f.object.resource_id).name %></td>
-  <td><%= f.object.resource_type == 'User' ? User.find(f.object.resource_id).text : Asset.find(f.object.resource_id).text %></td>
-  <td><%= f.object.resource_type %></td>
-  <td><%= f.button :submit, 'Accept' %></td>
-  <td><%= f.button :submit, 'Deny' %></td>
-</tr>
-
-
+<%= f.simple_fields_for :resource do |resource_form| %>
+  <%= render_product_specific_partial_if_available(
+    resource_form.object, 'products/types/classified_advertising/workflow/tasks/resource_fields', f: resource_form
+  ) %>
+<% end %>
