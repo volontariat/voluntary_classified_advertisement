@@ -69,6 +69,12 @@ FactoryGirl.define do
           project.stories << Factory.create(:classified_advertising_story, project: project)
         end
       end
+      
+      factory :classified_advertising_project_with_one_vacancy do
+        after_create do |project|
+          project.stories << Factory.create(:classified_advertising_story_with_one_vacancy, project: project)
+        end
+      end
     end
   end
 
@@ -86,6 +92,12 @@ FactoryGirl.define do
     
     factory :classified_advertising_story, class: Product::ClassifiedAdvertising::Story do
       association :project, factory: :classified_advertising_project
+      
+      factory :classified_advertising_story_with_one_vacancy do
+        after_create do |story|
+          story.tasks << Factory.create(:classified_advertising_task_with_one_vacancy, story: story)
+        end
+      end
     end
   end
   
@@ -94,6 +106,13 @@ FactoryGirl.define do
     text Faker::Lorem.sentences(10).join(' ')
     
     factory :classified_advertising_task, class: Product::ClassifiedAdvertising::Task do
+      
+      factory :classified_advertising_task_with_one_vacancy do
+        after_create do |task|
+          tasks.vacancies << Factory.create(:classified_advertising_vacancy, task: task)
+        end
+      end
+      
     end
   end
   

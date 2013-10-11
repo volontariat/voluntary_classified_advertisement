@@ -58,4 +58,14 @@ describe Product::ClassifiedAdvertising::Task do
       Vacancy.count.should == 0
     end
   end
+  
+  describe '#review' do
+    it 'assigns resource to the task' do
+      Factory.create(:classified_advertising_story_with_one_vacancy, project: project)
+      
+      project = FactoryGirl.create(:project)
+      raise "ok"
+      project = FactoryGirl.create(:classified_advertising_project_with_one_vacancy)
+    end
+  end
 end

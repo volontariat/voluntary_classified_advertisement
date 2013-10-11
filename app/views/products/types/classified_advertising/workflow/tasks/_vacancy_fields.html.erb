@@ -1,0 +1,16 @@
+<tr class="<%= cycle('odd', 'even') %>">
+  <td><%= f.object.name %></td>
+  <td><%= f.object.text %></td>
+</tr>
+<tr>
+  <td colspan="3">
+  <table class="table table-striped">
+    <tbody>
+      <%= f.simple_fields_for :candidatures do |candidature_form| %>
+        <%= render_product_specific_partial_if_available(
+          candidature_form.object, 'products/types/classified_advertising/workflow/tasks/candidature_fields', f: candidature_form
+        ) %>
+      <% end %>
+    </tbody>
+  </table></td>
+</tr>

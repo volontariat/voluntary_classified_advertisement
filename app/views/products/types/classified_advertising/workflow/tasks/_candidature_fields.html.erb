@@ -1,0 +1,16 @@
+<tr>
+  <th>Resource name</th>
+  <th>Resource text</th>
+  <th>Resource type</th>
+  <th></th>
+  <th></th>
+</tr>
+<tr>
+  <td><%= f.object.resource_type == 'User' ? User.find(f.object.resource_id).name : Asset.find(f.object.resource_id).name %></td>
+  <td><%= f.object.resource_type == 'User' ? User.find(f.object.resource_id).text : Asset.find(f.object.resource_id).text %></td>
+  <td><%= f.object.resource_type %></td>
+  <td><%= f.button :submit, 'Accept' %></td>
+  <td><%= f.button :submit, 'Deny' %></td>
+</tr>
+
+
