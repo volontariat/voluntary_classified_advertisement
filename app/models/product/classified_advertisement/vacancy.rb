@@ -1,4 +1,4 @@
-class Product::ClassifiedAdvertising::Vacancy < ::Vacancy
+class Product::ClassifiedAdvertisement::Vacancy < ::Vacancy
   attr_accessible :task_id, :task
 
 =begin

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Product::ClassifiedAdvertising::Story do
+describe Product::ClassifiedAdvertisement::Story do
   describe '#tasks_attributes=' do
     it 'creates, updates and destroys tasks' do
-      project = FactoryGirl.create(:classified_advertising_project_with_story)
+      project = FactoryGirl.create(:classified_advertisement_project_with_story)
       subject = project.stories.first
       
       # create
@@ -20,7 +20,7 @@ describe Product::ClassifiedAdvertising::Story do
       subject.setup_tasks; task = subject.tasks.first
       
       task.new_record?.should(be_false)
-      task.vacancies.first.is_a?(Product::ClassifiedAdvertising::Vacancy)
+      task.vacancies.first.is_a?(Product::ClassifiedAdvertisement::Vacancy)
   
       task_attributes = { id: task.id.clone, name: 'Task 1.1', text: 'Dummy 2' }
       

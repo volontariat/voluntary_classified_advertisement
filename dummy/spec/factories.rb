@@ -47,8 +47,8 @@ FactoryGirl.define do
       product.id = product.name.to_s.parameterize
     end
     
-    factory :classified_advertising_product, class: Product::ClassifiedAdvertising do
-      name 'Classified Advertising'
+    factory :classified_advertisement_product, class: Product::ClassifiedAdvertisement do
+      name 'Classified Advertisement'
     end
   end
   
@@ -61,18 +61,18 @@ FactoryGirl.define do
       resource_has_many(project, :areas) 
     end
     
-    factory :classified_advertising_project do
-      association :product, factory: :classified_advertising_product
+    factory :classified_advertisement_project do
+      association :product, factory: :classified_advertisement_product
       
-      factory :classified_advertising_project_with_story do
+      factory :classified_advertisement_project_with_story do
         after_create do |project|
-          project.stories << Factory.create(:classified_advertising_story, project: project)
+          project.stories << Factory.create(:classified_advertisement_story, project: project)
         end
       end
       
-      factory :classified_advertising_project_with_one_vacancy do
+      factory :classified_advertisement_project_with_one_vacancy do
         after_create do |project|
-          project.stories << Factory.create(:classified_advertising_story_with_one_vacancy, project: project)
+          project.stories << Factory.create(:classified_advertisement_story_with_one_vacancy, project: project)
         end
       end
     end
@@ -90,12 +90,12 @@ FactoryGirl.define do
     #  story.tasks << Factory.build(:task)
     #end
     
-    factory :classified_advertising_story, class: Product::ClassifiedAdvertising::Story do
-      association :project, factory: :classified_advertising_project
+    factory :classified_advertisement_story, class: Product::ClassifiedAdvertisement::Story do
+      association :project, factory: :classified_advertisement_project
       
-      factory :classified_advertising_story_with_one_vacancy do
+      factory :classified_advertisement_story_with_one_vacancy do
         after_create do |story|
-          story.tasks << Factory.create(:classified_advertising_task_with_one_vacancy, story: story)
+          story.tasks << Factory.create(:classified_advertisement_task_with_one_vacancy, story: story)
         end
       end
     end
@@ -105,11 +105,11 @@ FactoryGirl.define do
     sequence(:name) { |n| "task#{n}#{r_str}" }
     text Faker::Lorem.sentences(10).join(' ')
     
-    factory :classified_advertising_task, class: Product::ClassifiedAdvertising::Task do
+    factory :classified_advertisement_task, class: Product::ClassifiedAdvertisement::Task do
       
-      factory :classified_advertising_task_with_one_vacancy do
+      factory :classified_advertisement_task_with_one_vacancy do
         after_create do |task|
-          tasks.vacancies << Factory.create(:classified_advertising_vacancy, task: task)
+          tasks.vacancies << Factory.create(:classified_advertisement_vacancy, task: task)
         end
       end
       
@@ -124,7 +124,7 @@ FactoryGirl.define do
     limit 1
     state 'open'
     
-    factory :classified_advertising_vacancy, class: Product::ClassifiedAdvertising::Vacancy do
+    factory :classified_advertisement_vacancy, class: Product::ClassifiedAdvertisement::Vacancy do
       association :task
     end
   end

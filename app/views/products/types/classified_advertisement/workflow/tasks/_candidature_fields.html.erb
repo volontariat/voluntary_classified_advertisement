@@ -1,5 +1,5 @@
 <%= f.simple_fields_for :resource do |resource_form| %>
   <%= render_product_specific_partial_if_available(
-    resource_form.object, 'products/types/classified_advertising/workflow/tasks/resource_fields', f: resource_form
+    resource_form.object, 'products/types/classified_advertisement/workflow/tasks/resource_fields', f: resource_form
   ) %>
 <% end %>

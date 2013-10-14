@@ -1,5 +1,5 @@
-class Product::ClassifiedAdvertising::Task < ::Task
-  belongs_to :story, class_name: 'Product::ClassifiedAdvertising::Story', inverse_of: :task
+class Product::ClassifiedAdvertisement::Task < ::Task
+  belongs_to :story, class_name: 'Product::ClassifiedAdvertisement::Story', inverse_of: :task
   
   attr_accessible :vacancies_attributes
   attr_writer :vacancies
@@ -43,9 +43,9 @@ class Product::ClassifiedAdvertising::Task < ::Task
   
   def vacancy_class
     if product_id.present?
-      "#{product.class.name}::Vacancy".constantize rescue ::Product::ClassifiedAdvertising::Vacancy
+      "#{product.class.name}::Vacancy".constantize rescue ::Product::ClassifiedAdvertisement::Vacancy
     else
-      ::Product::ClassifiedAdvertising::Vacancy
+      ::Product::ClassifiedAdvertisement::Vacancy
     end
   end
   

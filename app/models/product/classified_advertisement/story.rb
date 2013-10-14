@@ -1,5 +1,5 @@
-class Product::ClassifiedAdvertising::Story < Story
-  has_many :tasks, dependent: :destroy, class_name: 'Product::ClassifiedAdvertising::Task', inverse_of: :story
+class Product::ClassifiedAdvertisement::Story < Story
+  has_many :tasks, dependent: :destroy, class_name: 'Product::ClassifiedAdvertisement::Task', inverse_of: :story
   
   def tasks_attributes=(attributes)
     self.tasks ||= []

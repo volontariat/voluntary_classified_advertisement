@@ -218,7 +218,7 @@ SimpleNavigation::Configuration.run do |navigation|
         workflow.item :user, t('workflow.user.index.title'), workflow_user_index_path do |user|
           { 
             'no-name' => t('workflow.user.products.no_name.title'),
-            'classified-advertising' => t('workflow.user.products.classified_advertising.title')
+            'classified-advertisement' => t('workflow.user.products.classified_advertisement.title')
           }.each do |slug, text|
             user.item slug.gsub('-', '_').to_sym, text, product_workflow_user_index_path(slug) do |product|
               product_slug = @story ? (@story.product.try(:to_param) || 'no-name') : 'no-name'

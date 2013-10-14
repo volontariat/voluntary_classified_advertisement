@@ -3,5 +3,5 @@ en:
   workflow:        
     user:
       products:
-        classified_advertising:
-          title: Classified Advertising
+        classified_advertisement:
+          title: Classified Advertisement

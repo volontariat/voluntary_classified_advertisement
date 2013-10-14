@@ -1,17 +1,17 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "voluntary_classified_advertising/version"
+require "voluntary_classified_advertisement/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "voluntary_classified_advertising"
-  s.version     = VoluntaryClassifiedAdvertising::VERSION
+  s.name        = "voluntary_classified_advertisement"
+  s.version     = VoluntaryClassifiedAdvertisement::VERSION
   s.authors     = ["TODO: Your name"]
   s.email       = ["TODO: Your email"]
   s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of VoluntaryClassifiedAdvertising."
-  s.description = "TODO: Description of VoluntaryClassifiedAdvertising."
+  s.summary     = "TODO: Summary of VoluntaryClassifiedAdvertisement."
+  s.description = "TODO: Description of VoluntaryClassifiedAdvertisement."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
 

@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :voluntary_classified_advertising do
+# task :voluntary_classified_advertisement do
 #   # Task goes here
 # end

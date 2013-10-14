@@ -1,6 +1,6 @@
 require "voluntary"
 
-require "voluntary_classified_advertising/engine"
+require "voluntary_classified_advertisement/engine"
 
-module VoluntaryClassifiedAdvertising
+module VoluntaryClassifiedAdvertisement
 end

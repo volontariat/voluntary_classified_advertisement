@@ -1,4 +1,4 @@
-voluntary_classified_advertising
+voluntary_classified_advertisement
 ================================
 
-Product about classified_advertising for crowdsourcing engine voluntary used e.g. by http://Volontari.at 
+Product about classified_advertisement for crowdsourcing engine voluntary used e.g. by http://Volontari.at 

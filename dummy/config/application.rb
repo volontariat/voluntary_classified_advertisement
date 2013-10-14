@@ -9,7 +9,7 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
-require "voluntary_classified_advertising"
+require "voluntary_classified_advertisement"
 
 module Dummy
   class Application < Rails::Application
