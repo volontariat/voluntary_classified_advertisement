@@ -5,7 +5,7 @@ source "https://rubygems.org"
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'voluntary', '0.1.0.rc2', path: '../voluntary'
+gem 'voluntary', '0.1.0', path: '../voluntary'
 
 # view
 gem "will_paginate", :github => "mislav/will_paginate"
