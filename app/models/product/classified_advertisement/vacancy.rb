@@ -1,5 +1,7 @@
 class Product::ClassifiedAdvertisement::Vacancy < ::Vacancy
   attr_accessible :task_id, :task
+  
+  after_initialize :set_defaults
 
 =begin
   has_many :candidatures, -> do
@@ -31,6 +33,10 @@ class Product::ClassifiedAdvertisement::Vacancy < ::Vacancy
     else
       Task
     end
+  end
+  
+  def product
+    @product ||= project.product if project
   end
   
   #def new_or_accepted_candidature
