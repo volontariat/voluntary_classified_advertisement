@@ -14,6 +14,9 @@ gem "sinatra", :require => false
 gem "addressable", "~> 2.2", :require => "addressable/uri"
 gem "jasmine", :git => "https://github.com/pivotal/jasmine-gem.git"
 
+# to get rspec running
+gem 'zip'
+
 # view
 gem "will_paginate", :github => "mislav/will_paginate"
 
