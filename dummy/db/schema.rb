@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130830171113) do
+ActiveRecord::Schema.define(:version => 20131023132038) do
 
   create_table "areas", :force => true do |t|
     t.string   "ancestry"
