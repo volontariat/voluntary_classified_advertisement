@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    errors:
+      models:
+        task:
+          attributes:
+            base:
+              no_vacancies: No vacancies.
+              only_one_new_candidature: New candidatures length must be 1.
+              candidature_resource_invalid: Candidature resource invalid.
