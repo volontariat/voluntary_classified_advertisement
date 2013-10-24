@@ -1,9 +1,7 @@
-<tr>
-  <td><%= f.input :name, required: true %></td>
-  <td><%= f.input :text, required: true %></td>
-  <td><%= f.button :submit, 'Accept' %></td>
-  <td><%= f.button :submit, 'Deny' %></td>
-</tr>
+<%= render 'shared/form/error_messages', resource: f.object %>
 
+<%= f.hidden_field :id %>
+<%= f.input :name, required: true %>
+<%= f.input :text, as: :text, required: true %>
 
 

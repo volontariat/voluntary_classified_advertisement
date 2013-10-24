@@ -1,5 +1,32 @@
-<%= f.simple_fields_for :resource do |resource_form| %>
-  <%= render_product_specific_partial_if_available(
-    resource_form.object, 'products/types/classified_advertisement/workflow/tasks/resource_fields', f: resource_form
-  ) %>
+<%= render 'shared/form/error_messages', resource: f.object %>
+
+<%= f.hidden_field :id %>
+
+<% f.object.resource ||= Asset.new %>
+
+<% @candidature_states ||= {} %>
+<% @candidature_states[f.object.state] ||= 0 %>
+<% @candidature_states[f.object.state] += 1 %>
+
+<% if @candidature_states[f.object.state] == 1 %>
+  <p>
+    <h5><%= I18n.t("general.#{f.object.state}") %></h5>
+  </p>
+<% end%>
+
+<% if f.object.state == 'new' %>
+  <%= f.simple_fields_for :resource do |resource_form| %>
+    <%= render_product_specific_partial_if_available(
+      resource_form.object, 'products/types/classified_advertisement/workflow/tasks/resource_fields', f: resource_form
+    ) %>
+  <% end %>
+<% else %>
+  <hr/>
+  <p>
+    <strong><%= I18n.t('activerecord.attributes.general.name') %></strong> <%= f.object.resource.name %> <br/>
+    <br/>
+    <strong><%= I18n.t('activerecord.attributes.general.text') %></strong><br/>
+    <br/>
+    <%= f.object.resource.text %> 
+  </p>
 <% end %>

@@ -3,14 +3,25 @@
   <td><%= f.object.text %></td>
 </tr>
 <tr>
-  <td colspan="3">
-  <table class="table table-striped">
-    <tbody>
-      <%= f.simple_fields_for :candidatures do |candidature_form| %>
-        <%= render_product_specific_partial_if_available(
-          candidature_form.object, 'workflow/tasks/candidature_fields', f: candidature_form
-        ) %>
-      <% end %>
-    </tbody>
-  </table></td>
+  <td colspan="2" style="padding-left: 25px">
+    <%= render 'shared/form/error_messages', resource: f.object %>
+    
+    <h5>Resource</h5>
+    <%= f.hidden_field :id %>
+    
+    <% f.object.candidatures.build if f.object.candidatures.select{|c| ['new', 'accepted'].include?(c.state)}.none? %>
+    
+    <% 
+    f.object.candidatures.sort! do |x,y|
+      Candidature::STATES.index(x.state.to_sym) <=> Candidature::STATES.index(y.state.to_sym) 
+    end
+    %>
+    
+    <%= f.simple_fields_for :candidatures do |candidature_form| %>
+      <% @debug = true %>
+      <%= render_product_specific_partial_if_available(
+        candidature_form.object, 'workflow/tasks/candidature_fields', f: candidature_form
+      ) %>
+    <% end %>
+  </td>
 </tr>
