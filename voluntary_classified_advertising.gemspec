@@ -7,13 +7,13 @@ require "voluntary_classified_advertisement/version"
 Gem::Specification.new do |s|
   s.name        = "voluntary_classified_advertisement"
   s.version     = VoluntaryClassifiedAdvertisement::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of VoluntaryClassifiedAdvertisement."
-  s.description = "TODO: Description of VoluntaryClassifiedAdvertisement."
+  s.authors     = ["Mathias Gawlista"]
+  s.email       = ["gawlista@gmail.com"]
+  s.homepage    = "http://github.com/volontariat/voluntary_classified_advertisement"
+  s.summary     = "Classified advertisement product for crowdsourcing engine voluntary."
+  s.description = "Classified advertisement product for crowdsourcing engine voluntary."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["CHANGELOG.md", "MIT-LICENSE", "Rakefile", "README.rdoc"]
 
   s.add_dependency 'voluntary', '0.1.0'
 
