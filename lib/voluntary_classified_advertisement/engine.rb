@@ -3,7 +3,7 @@ module VoluntaryClassifiedAdvertisement
     config.i18n.load_path += Dir[File.expand_path("../../../config/locales/**/*.{rb,yml}", __FILE__)]
     
     config.to_prepare do
-      Voluntary::Navigation::Base.add_product('classified-advertisement', I18n.t('workflow.user.products.classified_advertisement.title'))
+      Voluntary::Navigation::Base.add_product('classified-advertisement', 'workflow.user.products.classified_advertisement.title')
     end
   end
 end
