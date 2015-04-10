@@ -12,8 +12,8 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://github.com/volontariat/voluntary_classified_advertisement'
   s.summary     = 'Classified advertisement plugin for Crowdsourcing management system Voluntary.Software.'
   s.description = 'Plugin for #Crowdsourcing system Voluntary.Software: http://bit.ly/vca-0-2-0'
-
-  s.files = Dir['{app,config,db,lib}/**/*'] + ['CHANGELOG.md', 'MIT-LICENSE', 'Rakefile', 'README.md']
+  s.license     = 'MIT'
+  s.files       = Dir['{app,config,db,lib}/**/*'] + ['CHANGELOG.md', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
   s.add_dependency 'voluntary', '~> 0.3.0'
 
