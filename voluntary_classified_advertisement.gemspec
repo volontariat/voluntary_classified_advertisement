@@ -1,21 +1,21 @@
-$:.push File.expand_path("../lib", __FILE__)
+$:.push File.expand_path('../lib', __FILE__)
 
 # Maintain your gem's version:
-require "voluntary_classified_advertisement/version"
+require 'voluntary_classified_advertisement/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "voluntary_classified_advertisement"
+  s.name        = 'voluntary_classified_advertisement'
   s.version     = VoluntaryClassifiedAdvertisement::VERSION
-  s.authors     = ["Mathias Gawlista"]
-  s.email       = ["gawlista@gmail.com"]
-  s.homepage    = "http://github.com/volontariat/voluntary_classified_advertisement"
-  s.summary     = "Classified advertisement product for crowdsourcing engine voluntary."
-  s.description = "Classified advertisement product for crowdsourcing engine voluntary."
+  s.authors     = ['Mathias Gawlista']
+  s.email       = ['gawlista@gmail.com']
+  s.homepage    = 'http://github.com/volontariat/voluntary_classified_advertisement'
+  s.summary     = 'Classified advertisement plugin for Crowdsourcing management system Voluntary.Software.'
+  s.description = 'Plugin for #Crowdsourcing system Voluntary.Software: http://bit.ly/vca-0-2-0'
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["CHANGELOG.md", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir['{app,config,db,lib}/**/*'] + ['CHANGELOG.md', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  s.add_dependency 'voluntary', '~> 0.2.0'
+  s.add_dependency 'voluntary', '~> 0.3.0'
 
   # group :development
   s.add_development_dependency 'letter_opener', '~> 1.0.0'
@@ -30,12 +30,10 @@ Gem::Specification.new do |s|
   # group :test
   s.add_development_dependency 'capybara', '~> 1.1.2'
   s.add_development_dependency 'capybara-webkit', '~> 0.13.0'
-  s.add_development_dependency 'cucumber-rails', '~> 1.3.0'
   s.add_development_dependency 'cucumber-rails-training-wheels', '~> 1.0.0'
   s.add_development_dependency 'timecop', '~> 0.6.1'
   s.add_development_dependency 'factory_girl_rails', '~> 1.7.0'
   s.add_development_dependency 'fixture_builder', '~> 0.3.3'
-  s.add_development_dependency 'fuubar', '~> 1.1.0'
   s.add_development_dependency 'selenium-webdriver', '~> 2.22.1'
   s.add_development_dependency 'spork', '~> 1.0rc2'
   s.add_development_dependency 'guard-rspec', '~> 3.0.2'

@@ -19,7 +19,7 @@ describe Product::ClassifiedAdvertisement::Story do
       }
       subject.setup_tasks; task = subject.tasks.first
       
-      task.new_record?.should(be_false)
+      task.new_record?.should(be_falsey)
       task.vacancies.first.is_a?(Product::ClassifiedAdvertisement::Vacancy)
   
       task_attributes = { id: task.id.clone, name: 'Task 1.1', text: 'Dummy 2' }

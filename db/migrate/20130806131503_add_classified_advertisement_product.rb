@@ -1,8 +1,6 @@
 class AddClassifiedAdvertisementProduct < ActiveRecord::Migration
   def up
-    product = Product.new(name: 'Classified Advertisement', text: 'Classified Advertisement')
-    product.user_id = User.where(name: 'Master').first.id
-    product.save!
+    product = Product.create(name: 'Classified Advertisement', text: 'Dummy')
   end
   
   def down

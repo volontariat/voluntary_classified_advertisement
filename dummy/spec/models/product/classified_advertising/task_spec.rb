@@ -40,7 +40,7 @@ describe Product::ClassifiedAdvertisement::Task do
       }
       subject.save
       
-      subject.new_record?.should(be_false); vacancy = subject.vacancies.first
+      subject.new_record?.should(be_falsey); vacancy = subject.vacancies.first
   
       vacancy_attributes = { id: vacancy.id, name: 'Vacancy 1.1', text: 'Vacancy 1.2' }
       
@@ -61,11 +61,6 @@ describe Product::ClassifiedAdvertisement::Task do
   
   describe '#review' do
     it 'assigns resource to the task' do
-      Factory.create(:classified_advertisement_story_with_one_vacancy, project: project)
-      
-      project = FactoryGirl.create(:project)
-      raise "ok"
-      project = FactoryGirl.create(:classified_advertisement_project_with_one_vacancy)
     end
   end
 end
