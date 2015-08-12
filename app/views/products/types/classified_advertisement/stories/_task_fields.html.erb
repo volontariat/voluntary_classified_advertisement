@@ -4,17 +4,14 @@
 
   <%= f.check_box :_destroy %>
   <%= f.label :_destroy, t('general.destroy') %>
-  <div class="form-actions">
-    <div class="control-group string required" style="display: block">
-      <div class="controls">
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <%= link_to_add_fields(
-          t('stories.steps.setup_tasks.add_vacancy'), f, :vacancies, target: 'setup_vacancies_input'
-        ) %>
-      </div>
-    </div>
-  </div>
   
+  <div class="form-group">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to_add_fields(
+      t('stories.steps.setup_tasks.add_vacancy'), f, :vacancies, target: 'setup_vacancies_input'
+    ) %>
+  </div>
+
   <fieldset>
     <legend><%= t('vacancies.index.title')%></legend>
     <div id="setup_vacancies_input" class="form-inputs">

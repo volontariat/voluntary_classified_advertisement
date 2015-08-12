@@ -1,16 +1,14 @@
 <%= render 'shared/form/error_messages', resource: resource %>
-<div class="form-inputs">
-  <table class="table table-striped">
-  	<thead>
-      <th>Name</th>
-      <th>Text</th>
-    </thead>
-    <tbody>
-      <%= f.simple_fields_for :vacancies do |vacancy_form| %>
-        <%= render_product_specific_partial_if_available(
-          vacancy_form.object, 'workflow/tasks/vacancy_fields', f: vacancy_form
-        ) %>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+<table class="table table-striped">
+	<thead>
+    <th><%= t('attributes.name') %></th>
+    <th><%= t('attributes.text') %></th>
+  </thead>
+  <tbody>
+    <%= f.simple_fields_for :vacancies do |vacancy_form| %>
+      <%= render_product_specific_partial_if_available(
+        vacancy_form.object, 'workflow/tasks/vacancy_fields', f: vacancy_form
+      ) %>
+    <% end %>
+  </tbody>
+</table>
