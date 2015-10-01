@@ -12,7 +12,7 @@
     <% f.object.candidatures.build if f.object.candidatures.select{|c| ['new', 'accepted'].include?(c.state)}.none? %>
     
     <% 
-    f.object.candidatures.sort! do |x,y|
+    f.object.candidatures = f.object.candidatures.to_a.sort do |x,y|
       Candidature::STATES.index(x.state.to_sym) <=> Candidature::STATES.index(y.state.to_sym) 
     end
     %>
