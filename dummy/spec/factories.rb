@@ -17,6 +17,14 @@ end
 FactoryGirl.define do
   Voluntary::Test::RspecHelpers::Factories.code.call(self)
   
+  factory :vacancy do
+    association :project
+    sequence(:name) { |n| "vacancy #{n}" }
+    text Faker::Lorem.sentences(20).join(' ')
+    limit 1
+    state 'open'
+  end
+  
   factory :classified_advertisement_product, parent: :product, class: Product::ClassifiedAdvertisement do
     name 'Classified Advertisement'
   end
