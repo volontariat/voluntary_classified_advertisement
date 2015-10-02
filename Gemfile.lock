@@ -80,6 +80,13 @@ GIT
       zip-zip (~> 0.2)
 
 GIT
+  remote: git://github.com/volontariat/voluntary_recruiting.git
+  revision: abc2221b13f06f41f82d6cd2d1f63ecfa9dddd5d
+  specs:
+    voluntary_recruiting (0.0.1)
+      voluntary (~> 0.5)
+
+GIT
   remote: https://github.com/binarylogic/settingslogic.git
   revision: 0ae134bc6b93463bb0bc406e5b0df82ed07fc53f
   specs:
@@ -100,6 +107,7 @@ PATH
   specs:
     voluntary_classified_advertisement (0.2.0)
       voluntary (~> 0.5)
+      voluntary_recruiting (~> 0.0)
 
 GEM
   remote: http://rubygems.org/
@@ -631,6 +639,7 @@ DEPENDENCIES
   timecop (~> 0.6.1)
   voluntary!
   voluntary_classified_advertisement!
+  voluntary_recruiting!
   webmock (~> 1.8.11)
   yard (~> 0.7)
 
