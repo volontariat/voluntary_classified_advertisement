@@ -6,6 +6,7 @@ source "http://rubygems.org"
 gemspec
 
 gem 'voluntary', github: 'volontariat/voluntary'
+gem 'voluntary_recruiting', github: 'volontariat/voluntary_recruiting'
 
 # core
 gem 'rack-cors', '~> 0.2.4', require: 'rack/cors'

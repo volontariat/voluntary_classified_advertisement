@@ -16,7 +16,8 @@ Gem::Specification.new do |s|
   s.files       = Dir['{app,config,db,lib}/**/*'] + ['CHANGELOG.md', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
   s.add_dependency 'voluntary', '~> 0.5'
-
+  s.add_dependency 'voluntary_recruiting', '~> 0.0'
+  
   # group :development
   s.add_development_dependency 'letter_opener', '~> 1.0.0'
 
