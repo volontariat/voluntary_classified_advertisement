@@ -1,19 +1,18 @@
 class Product::ClassifiedAdvertisement::Story < Story
   has_many :tasks, dependent: :destroy, class_name: 'Product::ClassifiedAdvertisement::Task', inverse_of: :story
   
-  def tasks_attributes=(attributes)
-    self.tasks ||= []
-    
-    attributes.each do |index, task_attributes|
-      destroy = task_attributes.delete :_destroy
-      
-      if task_attributes[:id].present? && destroy.to_i == 1
-        self.tasks.where(id: task_attributes[:id]).destroy_all
-      elsif task_attributes[:id].present?
-        tasks.find(task_attributes[:id]).update_attributes(task_attributes)
-      else
-        self.tasks.build(task_attributes)
-      end
-    end
+  field :address, type: String
+  field :lat, type: String
+  field :lon, type: String
+  field :address_description, type: String
+  
+  attr_accessible :address, :lat, :lon, :address_description
+  
+  def after_creation_path
+    Rails.application.routes.url_helpers.story_tasks_path(self)
+  end
+  
+  def custom_tasks
+    tasks.order('from ASC, to ASC')
   end
 end

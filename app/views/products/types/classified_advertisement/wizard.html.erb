@@ -1,0 +1,45 @@
+<% if @story.new_record? %>
+  <h1><%= t('stories.new.title') %></h1>
+<% else %>
+  <h1><%= t('stories.edit.title') %></h1>
+<% end %>
+
+<%= simple_form_for(@story, url: @story.new_record? ? stories_path : story_path(@story), as: :story, html: {class: 'form-vertical'}) do |f| %>
+  <%= render partial: 'shared/form/error_messages', locals: { resource: @story } %>
+  
+  <%= @story.project ? f.hidden_field(:project_id) : f.input(:project_id, collection: Project.all) %> 
+  <%= f.input :name %>  
+  <%= f.input :text, as: :text %>
+ 
+  <div class="form-group string optional story_address">
+    <label class="string optional control-label control-label" for="story_address">Address</label>
+    <input name="story[address]" id="story_address" value="<%= @story.address %>" class="string required form-control"/>
+    <div id="story_map" style="width: 500px; height: 400px; margin-top:15px;"></div>
+    <input type="hidden" name="story[lat]" id="story_lat" value="<%= @story.lat %>"/> 
+    <input type="hidden" name="story[lon]" id="story_lon" value="<%= @story.lon %>"/>  
+  </div>
+  
+  <div class="form-group string optional story_address_description">
+    <label class="string optional control-label control-label" for="story_address_description">Address description</label>
+    <input name="story[address_description]" id="story_address_description" value="<%= @story.address_description %>" class="string required form-control"/>
+  </div>
+  <%= f.button :submit %>
+<% end %>
+
+<% content_for :javascript_includes do %>
+  <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+  <%= javascript_include_tag 'voluntary/optional_lib/jquery.location_picker.js' %>
+<% end %>
+
+<% content_for :document_ready do %>
+  $('#story_map').locationpicker({
+    location: {latitude: <%= @story.lat ? @story.lat : 'null' %>, longitude: <%= @story.lon ? @story.lon : 'null' %>}, 
+    radius: 300,
+    inputBinding: {
+      latitudeInput: $('#story_lat'),
+      longitudeInput: $('#story_lon'),
+      locationNameInput: $('#story_address')
+    },
+    enableAutocomplete: true
+  });
+<% end %>
