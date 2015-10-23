@@ -1,0 +1,100 @@
+<%= simple_form_for(@task, url: @task.new_record? ? tasks_path : task_path(@task), as: :task, html: {class: 'form-vertical', style: 'margin-bottom:15px;'}) do |f| %>
+  <%= hidden_field_tag :story_id, @task.story_id %>
+  <%= f.input :name %>  
+  <%= f.input :text, as: :text %>
+  
+  <fieldset class="fieldset" style="border: 1px solid black; padding:15px; margin-top:15px;">
+    <legend style="margin-bottom: 0px;"><%= t('activerecord.models.vacancy') %></legend>
+    
+    <div class="form-group string optional vacancy_resource_type">
+      <label class="string optional control-label control-label" for="vacancy_resource_type">
+        <abbr title="required">*</abbr> <%= t('attributes.resource_type') %>
+      </label>
+      <%= select_tag :resource_type, options_for_select(['User', 'Thing'], @task.vacancy.resource_type), id: 'vacancy_resource_type', name: 'task[vacancy_attributes][resource_type]', class: 'form-control' %>
+    </div>
+    
+    <div class="form-group string optional vacancy_name">
+      <label class="string optional control-label control-label" for="vacancy_name">
+        <abbr title="required">*</abbr> <%= t('attributes.name') %>
+      </label>
+      <%= text_field_tag :name, @task.vacancy.name, id: 'vacancy_name', name: 'task[vacancy_attributes][name]', class: 'form-control' %>
+    </div>
+    
+    <div class="form-group string optional vacancy_limit">
+      <label class="string optional control-label control-label" for="vacancy_limit">
+        <%= t('activerecord.attributes.vacancy.limit') %>
+      </label>
+      <%= text_field_tag :limit, @task.vacancy.limit, id: 'vacancy_limit', name: 'task[vacancy_attributes][limit]', class: 'form-control' %>
+    </div>
+    
+    <div class="form-group string optional vacancy_timezone">
+      <label class="string optional control-label control-label" for="vacancy_timezone">
+        <%= t('attributes.timezone') %>
+      </label>
+      <%= time_zone_select @task.vacancy, :timezone, nil, {}, id: 'vacancy_timezone', name: 'task[vacancy_attributes][timezone]', class: 'form-control' %>
+    </div>
+    
+    <div class="form-group string optional vacancy_from_raw">
+      <label class="string optional control-label control-label" for="vacancy_from_raw">
+        <%= t('activerecord.attributes.vacancy.from') %>
+      </label>
+      <div class="datetime_picker" class="input-append date">
+        <%= text_field_tag :from_raw, @task.vacancy.from_raw, id: 'vacancy_from_raw', name: 'task[vacancy_attributes][from_raw]', 'data-format' => 'yyyy-MM-dd hh:mm:ss', style: 'width:165px;' %>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+          </i>
+        </span>
+      </div>
+    </div>
+    
+    <div class="form-group string optional vacancy_to_raw">
+      <label class="string optional control-label control-label" for="vacancy_to_raw">
+        <%= t('activerecord.attributes.vacancy.to') %>
+      </label>
+      <div class="datetime_picker" class="input-append date">
+        <%= text_field_tag :to_raw, @task.vacancy.to_raw, id: 'vacancy_to_raw', name: 'task[vacancy_attributes][to_raw]', 'data-format' => 'yyyy-MM-dd hh:mm:ss', style: 'width:165px;' %>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+          </i>
+        </span>
+      </div>
+    </div>
+  </fieldset>
+  
+  <fieldset class="fieldset" style="border: 1px solid black; padding:15px; margin-top:15px; margin-bottom:15px;">
+    <legend style="margin-bottom: 0px;"><%= t('attributes.address') %></legend>
+    <div class="form-group string optional task_address">
+      <label class="string optional control-label control-label" for="task_address"><%= t('attributes.string') %></label>
+      <input name="task[address]" id="task_address" value="<%= @task.address %>" class="string optional form-control"/>
+      <div id="task_map" style="width: 500px; height: 400px; margin-top:15px;"></div>
+      <input type="hidden" name="task[lat]" id="task_lat" value="<%= @task.lat %>"/> 
+      <input type="hidden" name="task[lon]" id="task_lon" value="<%= @task.lon %>"/>  
+    </div>
+    
+    <div class="form-group string optional task_address_description">
+      <label class="string optional control-label control-label" for="task_address_description"><%= t('attributes.description') %></label>
+      <input name="task[address_description]" id="task_address_description" value="<%= @task.address_description %>" class="string optional form-control"/>
+    </div>
+  </fieldset>
+  
+  <%= f.button :submit %>
+<% end %>
+
+<% content_for :javascript_includes do %>
+  <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+  <%= javascript_include_tag 'voluntary/optional_lib/jquery.location_picker.js' %>
+<% end %>
+
+<% content_for :document_ready do %>
+  $('#task_map').locationpicker({
+    location: {latitude: <%= @task.lat ? @task.lat : 'null' %>, longitude: <%= @task.lon ? @task.lon : 'null' %>}, 
+    radius: 300,
+    inputBinding: {
+      latitudeInput: $('#task_lat'),
+      longitudeInput: $('#task_lon'),
+      locationNameInput: $('#task_address')
+    },
+    enableAutocomplete: true
+  });
+  $('#vacancy_timezone').val('<%= @task.vacancy.timezone %>')
+<% end %>

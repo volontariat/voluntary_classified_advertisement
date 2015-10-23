@@ -1,4 +1,14 @@
 en:
+  tasks:
+    show:
+      change_signing: Change signing
+        
+    sign_up:
+      already_signed_up: You've already signed up this much!
+      limit_reached: The limit is already reached!
+    sign_out:
+      not_signed_up: You've not signed up yet!
+      
   activerecord:
     errors:
       models:

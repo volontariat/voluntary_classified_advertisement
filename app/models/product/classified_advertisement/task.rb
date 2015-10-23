@@ -1,65 +1,31 @@
 class Product::ClassifiedAdvertisement::Task < ::Task
   belongs_to :story, class_name: 'Product::ClassifiedAdvertisement::Story', inverse_of: :task
   
-  attr_accessible :vacancies_attributes
-  attr_writer :vacancies
-  
   validates :text, presence: true
   
-  validate :at_least_one_vacancy
+  attr_accessible :vacancy_attributes
+  attr_writer :vacancy
   
-  after_save :save_dependencies
+  field :vacancy_id, type: Integer
+  field :address, type: String
+  field :lat, type: String
+  field :lon, type: String
+  field :address_description, type: String
+  field :from, type: DateTime
+  field :to, type: DateTime
+  field :resource_type, type: String
+  
+  attr_accessible :address, :lat, :lon, :address_description, :from, :to, :resource_type
+  
+  after_create :set_vacancy_task_association
   after_destroy :destroy_non_mongodb_records
   
-  state_machine :state, initial: :new do
-    state :under_supervision do
-      validate :new_candidature_present?
-    end
+  def vacancy_attributes=(value)
+    vacancy.update value
   end
   
-  def vacancies
-    @vacancies ||= new_record? ? [vacancy_class.new(task: self)] : vacancy_class.where(task_id: id.to_s)
-  end
-  
-  def vacancies_attributes=(attributes = {})
-    self.vacancies = [] if self.vacancies.length == 1 && self.vacancies.first.new_record?
-    
-    attributes.select{|k,v| (v[:name].present? && v[:text].present?) || v[:id].present? }.each do |index, vacancy_attributes|
-      destroy = vacancy_attributes.delete :_destroy
-      vacancy_attributes[:task] = self
-      vacancy = nil
-      
-      if vacancy_attributes[:id].present? && destroy.to_i == 1
-        begin; vacancy_class.destroy(vacancy_attributes[:id]); rescue ActiveRecord::RecordNotFound; end
-        @vacancies.select!{|v| v.id != vacancy_attributes[:id]}
-      elsif vacancy_attributes[:id].present?
-        begin; vacancy = vacancy_class.find(vacancy_attributes[:id]); rescue ActiveRecord::RecordNotFound; end
-        
-        vacancy_id = vacancy_attributes.delete(:id)
-        
-        vacancy.update_attributes(vacancy_attributes) if vacancy.present?
-        
-        vacancy_attributes[:id] = vacancy_id
-      else
-        vacancy = vacancy_class.new(vacancy_attributes)
-      end
-      
-      next unless vacancy.present?
-      
-      if vacancy_attributes[:id].present?
-        self.vacancies.each_with_index do |current_vacancy, vacancies_index|
-          if current_vacancy.id.to_s == vacancy_attributes[:id]
-            self.vacancies[vacancies_index] = vacancy
-          end
-        end
-      else
-        self.vacancies << vacancy
-      end
-    end
-  end
-  
-  def vacancies_attributes
-    @vacancies_attributes ||= (vacancies.empty? ? [vacancy_class.new(task: self)] : vacancies).map{|v| v.attributes}
+  def vacancy
+    @vacancy ||= new_record? ? vacancy_class.new(task: self) : vacancy_class.find(vacancy_id)
   end
   
   def vacancy_class
@@ -89,54 +55,46 @@ class Product::ClassifiedAdvertisement::Task < ::Task
     super(transition)
   end
   
+  def sign_up(current_user_id, amount = nil)
+    amount = vacancy.resource_type == 'User' ? 1 : amount
+    user_candidature = vacancy.candidatures.where(user_id: current_user_id).first
+    
+    if amount == user_candidature.try(:amount)
+      return I18n.t('tasks.sign_up.already_signed_up')
+    elsif vacancy.calculate_accepted_candidatures_amount == vacancy.limit && amount > user_candidature.try(:amount)
+      return I18n.t('tasks.sign_up.limit_reached')
+    end
+    
+    candidature = user_candidature ? user_candidature : vacancy.candidatures.new
+    candidature.user_id = current_user_id
+    candidature.resource_type = vacancy.resource_type
+    candidature.resource_id = current_user_id if vacancy.resource_type == 'User'
+    candidature.amount = amount
+    user_candidature ? candidature.save : candidature.accept
+    
+    nil
+  end
+  
+  def sign_out(current_user_id)
+    user_candidature = vacancy.candidatures.where(user_id: current_user_id).first
+    
+    return I18n.t('tasks.sign_out.not_signed_up') unless user_candidature
+      
+    user_candidature.destroy
+    
+    nil
+  end
+  
   private
   
-  def at_least_one_vacancy
-    unless vacancies.select(&:valid?).any?
-      errors.add(:base, I18n.t('activerecord.errors.models.task.attributes.base.no_vacancies'))
-    end
-  end
-  
-  def save_dependencies
-    vacancies.select(&:new_record?).each do |vacancy|
-      vacancy.task = self
-      vacancy.do_open
-    end
-  end
-  
-  def new_candidature_present?
-    vacancies.each do |vacancy|
-      new_candidatures = vacancy.candidatures.select{|c| c.state == 'new'}
-      
-      if new_candidatures.none?
-        errors.add(
-          :base, 
-          I18n.t(
-            'activerecord.errors.models.task.attributes.base.' + 
-            'only_one_new_candidature'
-          )
-        )
-      elsif new_candidatures.length == 1 && !new_candidatures.first.resource.valid?
-        errors.add(
-          :base, 
-          I18n.t(
-            'activerecord.errors.models.task.attributes.base.' + 
-            'candidature_resource_invalid'
-          )
-        )  
-      elsif new_candidatures.length != 1
-        errors.add(
-          :base, 
-          I18n.t(
-            'activerecord.errors.models.task.attributes.base.' + 
-            'only_one_new_candidature'
-          )
-        )
-      end
-    end
+  def set_vacancy_task_association
+    vacancy.do_open
+    vacancy.task_id = id
+    vacancy.save!
+    update_attribute :vacancy_id, vacancy.id
   end
   
   def destroy_non_mongodb_records
-    vacancies.destroy_all
+    vacancy.destroy
   end
 end

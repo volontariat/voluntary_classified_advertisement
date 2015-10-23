@@ -1,0 +1,5 @@
+<% if @error.present? %>
+  alert("<%= @error %>");
+<% else %>
+  window.location.reload();
+<% end %>

@@ -1,0 +1,86 @@
+<% if @tasks.none? || @tasks.select{|e| e.id.present? }.none? %>
+<p><%= I18n.t("tasks.index.empty_collection")%></p>
+<% else %>
+<table class="table table-striped">
+  <thead>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <th><%= t('attributes.name') %></th>
+      <th><%= t('attributes.resource_type') %>
+      <th><%= t('attributes.from') %>
+      <th><%= t('attributes.to') %>
+      <th><%= t('activerecord.attributes.vacancy.limit') %></th>
+      <% if user_signed_in? %><th></th><% end %>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% tasks_with_candidatures_of_current_user = tasks_with_candidatures(current_user) %> 
+  <% @tasks.select{|e| e.id.present? }.each do |task| %>
+    <% accepted_candidatures_amount = task.vacancy.calculate_accepted_candidatures_amount %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= link_to task.name, task_path(task) %></td>
+      <td><%= task.resource_type %></td>  
+      <td><%= task.from ? l(task.from, format: :default) : '-' %></td>
+      <td><%= task.to ? l(task.to, format: :default) : '-' %></td>
+      <td>
+        <%= accepted_candidatures_amount %> / <%= task.vacancy.limit %>
+      </td>
+      <% if user_signed_in? %>
+      <td>
+        <% if tasks_with_candidatures_of_current_user.include? task.id %>
+          <% if task.vacancy.resource_type == 'Thing' %>
+            <%= link_to t('tasks.show.change_signing'), change_signing_task_path(task.id), class: 'btn btn-warning remote_modal_link' %>
+          <% end %>
+          
+          <%= link_to t('general.sign_out'), sign_out_task_path(task.id), method: :delete, remote: true, data: { confirm: t('general.questions.are_you_sure') }, class: 'btn btn-danger' %>
+        <% else %>
+          <% if accepted_candidatures_amount < task.vacancy.limit && !task.vacancy.ended? %>
+            <% if task.vacancy.resource_type == 'User' %>
+              <%= link_to t('general.sign_up'), sign_up_task_path(task.id), method: :put, remote: true, class: 'btn btn-success btn-xs' %>
+            <% else %>
+              <%= link_to t('general.sign_up'), sign_up_task_path(task.id), class: 'btn btn-success btn-xs remote_modal_link' %>
+            <% end %>
+          <% else %>
+            <%= link_to t('general.sign_up'), '#', class: 'btn btn-danger btn-xs disabled' %></a>
+          <% end %>
+        <% end %>
+      </td>
+      <% end %>
+      <td>
+        <% if !task.is_a?(Column) && (
+          can?(:destroy, task) || can?(:edit, task) || (
+              task.respond_to?(:state_events) && task.state_events.select{|event| can? event, task }.any?
+            )
+        ) %>
+        <div class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= t('general.actions') %></a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <% if can? :destroy, task %>    
+            <li>
+              <%= link_to(
+                t('general.destroy'), task_path(task.id), id: "task_#{task.id}", method: :delete, 
+                data: { confirm: t('general.questions.are_you_sure') },
+                onclick: "delete_link('task_#{task.id}'); return false;"
+              ) 
+              %>
+            </li>
+          <% end %>
+          <% if can? :edit, task %>    
+            <li><%= link_to t('general.edit'), eval("edit_task_path(task)") %></li>
+          <% end %>
+          <% links = event_links_for_resource(task, 'tasks') %>
+          <% if links.any? %>
+            <li class="divider"></li>
+            <%= render 'shared/resource/event_elements', links: links %>
+          <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<%= link_to t("tasks.new.title"), new_story_task_path(@story) %>

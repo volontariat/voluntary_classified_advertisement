@@ -1,0 +1,23 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <%= form_tag sign_up_task_path(@task.id), method: :put, remote: true, class: 'form-horizontal' do %>
+      <div class="modal-header">
+        <h3><%= t('general.sign_up') %></h3>
+      </div>
+      <div class="modal-body">
+        <div class="form-group string required candidature_amount">
+          <label class="string required control-label col-sm-3 control-label" for="candidature_amount">
+            <abbr title="required">*</abbr> <%= t('activerecord.attributes.candidature.amount') %>
+          </label>
+          <div class="col-sm-9">
+            <input class="string required form-control" type="text" name="candidature[amount]" id="candidature_amount" value="<%= @amount %>">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('general.close') %></button>
+        <%= submit_tag t('general.submit'), class: 'btn btn-default' %>
+      </div>
+    <% end %>
+  </div>
+</div>
