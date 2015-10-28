@@ -6,57 +6,72 @@
   <fieldset class="fieldset" style="border: 1px solid black; padding:15px; margin-top:15px;">
     <legend style="margin-bottom: 0px;"><%= t('activerecord.models.vacancy') %></legend>
     
-    <div class="form-group string optional vacancy_resource_type">
+    <div class="form-group string optional vacancy_resource_type <%= params[:task].present? && @task.vacancy.resource_type.blank? ? ' has-error' : '' %>">
       <label class="string optional control-label control-label" for="vacancy_resource_type">
         <abbr title="required">*</abbr> <%= t('attributes.resource_type') %>
       </label>
-      <%= select_tag :resource_type, options_for_select(['User', 'Thing'], @task.vacancy.resource_type), id: 'vacancy_resource_type', name: 'task[vacancy_attributes][resource_type]', class: 'form-control' %>
+      <%= select_tag :resource_type, options_for_select(['User', 'Thing'], @task.vacancy.resource_type), id: 'vacancy_resource_type', name: 'task[vacancy_attributes][resource_type]', class: 'string required form-control' %>
+      <% if params[:task].present? && @task.vacancy.resource_type.blank? %>
+        <span class="help-block"><%= t('errors.messages.blank') %></span>
+      <% end %>
     </div>
     
-    <div class="form-group string optional vacancy_name">
-      <label class="string optional control-label control-label" for="vacancy_name">
+    <div class="form-group string required vacancy_name <%= params[:task].present? && @task.vacancy.name.blank? ? ' has-error' : '' %>">
+      <label class="string required control-label control-label" for="vacancy_name">
         <abbr title="required">*</abbr> <%= t('attributes.name') %>
       </label>
-      <%= text_field_tag :name, @task.vacancy.name, id: 'vacancy_name', name: 'task[vacancy_attributes][name]', class: 'form-control' %>
+      <%= text_field_tag :name, @task.vacancy.name, id: 'vacancy_name', name: 'task[vacancy_attributes][name]', class: 'string required form-control' %>
+      <% if params[:task].present? && @task.vacancy.name.blank? %>
+        <span class="help-block"><%= t('errors.messages.blank') %></span>
+      <% end %>
     </div>
     
     <div class="form-group string optional vacancy_limit">
       <label class="string optional control-label control-label" for="vacancy_limit">
         <%= t('activerecord.attributes.vacancy.limit') %>
       </label>
-      <%= text_field_tag :limit, @task.vacancy.limit, id: 'vacancy_limit', name: 'task[vacancy_attributes][limit]', class: 'form-control' %>
+      <%= text_field_tag :limit, @task.vacancy.limit, id: 'vacancy_limit', name: 'task[vacancy_attributes][limit]', class: 'string optional form-control' %>
     </div>
     
-    <div class="form-group string optional vacancy_timezone">
+    <div class="form-group string optional vacancy_timezone <%= params[:task].present? && @task.vacancy.timezone.blank? ? ' has-error' : '' %>">
       <label class="string optional control-label control-label" for="vacancy_timezone">
         <%= t('attributes.timezone') %>
       </label>
-      <%= time_zone_select @task.vacancy, :timezone, nil, {}, id: 'vacancy_timezone', name: 'task[vacancy_attributes][timezone]', class: 'form-control' %>
+      <%= time_zone_select @task.vacancy, :timezone, nil, {}, id: 'vacancy_timezone', name: 'task[vacancy_attributes][timezone]', class: 'form-control', class: 'string required form-control' %>
+      <% if params[:task].present? && @task.vacancy.timezone.blank? %>
+        <span class="help-block"><%= t('errors.messages.blank') %></span>
+      <% end %>
     </div>
     
-    <div class="form-group string optional vacancy_from_raw">
+    <div class="form-group string optional vacancy_from_raw <%= params[:task].present? && @task.vacancy.from_raw.blank? ? ' has-error' : '' %>">
       <label class="string optional control-label control-label" for="vacancy_from_raw">
         <%= t('activerecord.attributes.vacancy.from') %>
       </label>
       <div class="datetime_picker" class="input-append date">
-        <%= text_field_tag :from_raw, @task.vacancy.from_raw, id: 'vacancy_from_raw', name: 'task[vacancy_attributes][from_raw]', 'data-format' => 'yyyy-MM-dd hh:mm:ss', style: 'width:165px;' %>
+        <%= text_field_tag :from_raw, @task.vacancy.from_raw, id: 'vacancy_from_raw', name: 'task[vacancy_attributes][from_raw]', 'data-format' => 'yyyy-MM-dd hh:mm:ss', style: 'width:165px;', class: 'string required form-control' %>
         <span class="add-on">
           <i data-time-icon="icon-time" data-date-icon="icon-calendar">
           </i>
         </span>
+        <% if params[:task].present? && @task.vacancy.from_raw.blank? %>
+          <span class="help-block"><%= t('errors.messages.blank') %></span>
+        <% end %>
       </div>
     </div>
     
-    <div class="form-group string optional vacancy_to_raw">
+    <div class="form-group string optional vacancy_to_raw <%= params[:task].present? && @task.vacancy.to_raw.blank? ? ' has-error' : '' %>">
       <label class="string optional control-label control-label" for="vacancy_to_raw">
         <%= t('activerecord.attributes.vacancy.to') %>
       </label>
       <div class="datetime_picker" class="input-append date">
-        <%= text_field_tag :to_raw, @task.vacancy.to_raw, id: 'vacancy_to_raw', name: 'task[vacancy_attributes][to_raw]', 'data-format' => 'yyyy-MM-dd hh:mm:ss', style: 'width:165px;' %>
+        <%= text_field_tag :to_raw, @task.vacancy.to_raw, id: 'vacancy_to_raw', name: 'task[vacancy_attributes][to_raw]', 'data-format' => 'yyyy-MM-dd hh:mm:ss', style: 'width:165px;', class: 'string required form-control' %>
         <span class="add-on">
           <i data-time-icon="icon-time" data-date-icon="icon-calendar">
           </i>
         </span>
+        <% if params[:task].present? && @task.vacancy.to_raw.blank? %>
+          <span class="help-block"><%= t('errors.messages.blank') %></span>
+        <% end %>
       </div>
     </div>
   </fieldset>
@@ -86,15 +101,34 @@
 <% end %>
 
 <% content_for :document_ready do %>
-  $('#task_map').locationpicker({
-    location: {latitude: <%= @task.lat ? @task.lat : 'null' %>, longitude: <%= @task.lon ? @task.lon : 'null' %>}, 
-    radius: 300,
-    inputBinding: {
-      latitudeInput: $('#task_lat'),
-      longitudeInput: $('#task_lon'),
-      locationNameInput: $('#task_address')
-    },
-    enableAutocomplete: true
-  });
+  var lat = "<%= @task.lat %>";
+  var lon = "<%= @task.lon %>";
+  
+  function initLocationPicker(position) {
+    options = {
+      radius: 300,
+      inputBinding: {
+        latitudeInput: $('#task_lat'),
+        longitudeInput: $('#task_lon'),
+        locationNameInput: $('#task_address')
+      },
+      enableAutocomplete: true
+    }
+    
+    if(position) {
+      options['location'] = { latitude: position.coords.latitude, longitude: position.coords.longitude }
+    } else if (lat != "") {
+      options['location'] = { latitude: lat, longitude: lon }
+    }
+    
+    $('#task_map').locationpicker(options);
+  }
+  
+  if(lat == "" && navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(initLocationPicker);
+  } else {
+    initLocationPicker(null);
+  }
+  
   $('#vacancy_timezone').val('<%= @task.vacancy.timezone %>')
 <% end %>
