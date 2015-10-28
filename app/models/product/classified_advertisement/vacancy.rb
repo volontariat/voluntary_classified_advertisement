@@ -1,6 +1,10 @@
 class Product::ClassifiedAdvertisement::Vacancy < ::Vacancy
   has_many :candidatures, dependent: :destroy, class_name: 'Product::ClassifiedAdvertisement::Candidature', inverse_of: :vacancy
   
+  validates :timezone, presence: true
+  validates :from_raw, presence: true
+  validates :to_raw, presence: true
+  
   attr_accessible :task_id, :task
   
   after_initialize :set_defaults
