@@ -7,4 +7,13 @@ Rails.application.routes.draw do
       delete 'sign_out' => 'classified_advertisement/tasks#sign_out'
     end
   end
+  
+  resources :stories, only: [:create, :show, :edit, :update, :destroy] do
+    resources :tasks, only: [:index, :new] do
+      collection do
+        get 'calendar' => 'classified_advertisement/tasks#calendar'
+        get 'events' => 'classified_advertisement/tasks#events'
+      end
+    end
+  end
 end

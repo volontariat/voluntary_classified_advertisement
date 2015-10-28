@@ -1,0 +1,8 @@
+<ul class="nav nav-pills">
+  <li role="presentation" class="<%= current_page?(story_tasks_path(@story)) ? 'active' : '' %>">
+    <%= link_to t('general.list'), story_tasks_path(@story) %>
+  </li>
+  <li role="presentation" class="<%= current_page?(calendar_story_tasks_path(@story)) ? 'active' : '' %>">
+    <%= link_to t('general.calendar'), calendar_story_tasks_path(@story) %>
+  </li>
+</ul>

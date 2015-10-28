@@ -1,3 +1,5 @@
+<%= render partial: 'classified_advertisement/tasks/navigation' %>
+
 <% if @tasks.none? || @tasks.select{|e| e.id.present? }.none? %>
 <p><%= I18n.t("tasks.index.empty_collection")%></p>
 <% else %>
@@ -23,18 +25,18 @@
       <td><%= task.from ? l(task.from, format: :default) : '-' %></td>
       <td><%= task.to ? l(task.to, format: :default) : '-' %></td>
       <td>
-        <%= accepted_candidatures_amount %> / <%= task.vacancy.limit %>
+        <%= accepted_candidatures_amount %> / <%= task.vacancy.limit || I18n.t('general.unlimited') %>
       </td>
       <% if user_signed_in? %>
       <td>
         <% if tasks_with_candidatures_of_current_user.include? task.id %>
           <% if task.vacancy.resource_type == 'Thing' %>
-            <%= link_to t('tasks.show.change_signing'), change_signing_task_path(task.id), class: 'btn btn-warning remote_modal_link' %>
+            <%= link_to t('tasks.show.change_signing'), change_signing_task_path(task.id), class: 'btn btn-warning btn-xs remote_modal_link' %>
           <% end %>
           
-          <%= link_to t('general.sign_out'), sign_out_task_path(task.id), method: :delete, remote: true, data: { confirm: t('general.questions.are_you_sure') }, class: 'btn btn-danger' %>
+          <%= link_to t('general.sign_out'), sign_out_task_path(task.id), method: :delete, remote: true, data: { confirm: t('general.questions.are_you_sure') }, class: 'btn btn-danger btn-xs' %>
         <% else %>
-          <% if accepted_candidatures_amount < task.vacancy.limit && !task.vacancy.ended? %>
+          <% if (task.vacancy.limit.blank? || accepted_candidatures_amount < task.vacancy.limit) && !task.vacancy.ended? %>
             <% if task.vacancy.resource_type == 'User' %>
               <%= link_to t('general.sign_up'), sign_up_task_path(task.id), method: :put, remote: true, class: 'btn btn-success btn-xs' %>
             <% else %>
@@ -83,4 +85,8 @@
 </table>
 <% end %>
 
-<%= link_to t("tasks.new.title"), new_story_task_path(@story) %>
+<p style="margin-top:15px;">
+  <%= link_to new_story_task_path(@story), class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= t("tasks.new.title") %>
+  <% end %>
+</p>

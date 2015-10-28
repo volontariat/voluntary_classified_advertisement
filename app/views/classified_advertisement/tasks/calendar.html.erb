@@ -1,0 +1,23 @@
+<% content_for :stylesheet_includes do %>
+  <%= stylesheet_link_tag 'fullcalendar' %>
+<% end %>
+
+<%= render partial: 'classified_advertisement/tasks/navigation' %>
+
+<div id="calendar"></div>
+
+<p style="margin-top:15px;">
+  <%= link_to new_story_task_path(@story), class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= t("tasks.new.title") %>
+  <% end %>
+</p>
+
+<% content_for :document_ready do %>
+  $('#calendar').fullCalendar({
+    events: '<%= events_story_tasks_path(@story, format: 'json') %>'
+  });
+<% end %>
+
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag 'fullcalendar' %>
+<% end %>
