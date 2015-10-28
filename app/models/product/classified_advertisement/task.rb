@@ -17,6 +17,7 @@ class Product::ClassifiedAdvertisement::Task < ::Task
   
   attr_accessible :address, :lat, :lon, :address_description, :from, :to, :resource_type
   
+  before_validation :validate_vacancy
   after_create :set_vacancy_task_association
   after_destroy :destroy_non_mongodb_records
   
@@ -86,6 +87,12 @@ class Product::ClassifiedAdvertisement::Task < ::Task
   end
   
   private
+  
+  def validate_vacancy
+    unless vacancy.valid?
+      errors[:base] << I18n.t('tasks.save.vacancy_invalid')
+    end
+  end
   
   def set_vacancy_task_association
     vacancy.do_open

@@ -1,5 +1,7 @@
 en:
   tasks:
+    save:
+      vacancy_invalid: Vacancy form is invalid!
     show:
       change_signing: Change signing
         
