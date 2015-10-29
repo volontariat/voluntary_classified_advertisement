@@ -8,10 +8,25 @@ GIT
       rdiscount
 
 GIT
-  remote: git://github.com/volontariat/voluntary.git
-  revision: 20ba27c4dfe488017aaaf55deeff0ddd11c9d6eb
+  remote: https://github.com/binarylogic/settingslogic.git
+  revision: 0ae134bc6b93463bb0bc406e5b0df82ed07fc53f
   specs:
-    voluntary (0.6.0)
+    settingslogic (2.0.9)
+
+GIT
+  remote: https://github.com/pivotal/jasmine-gem.git
+  revision: 293cb072d2f19b1534a6472a1a8c6844ffb575ae
+  specs:
+    jasmine (2.3.1)
+      jasmine-core (~> 2.3)
+      phantomjs
+      rack (>= 1.2.1)
+      rake
+
+PATH
+  remote: ../../voluntary
+  specs:
+    voluntary (0.7.0)
       active_model_serializers (~> 0.9.3)
       activerecord-deprecated_finders (~> 1.0.3)
       activerecord-import (~> 0.4.1)
@@ -37,13 +52,14 @@ GIT
       foreigner (~> 1.1.0)
       foreman (~> 0.46)
       friendly_id (~> 5.0.0)
+      fullcalendar-rails (~> 2.4)
       gon (~> 5.0.1)
       handlebars_assets (~> 0.15)
       has_scope (~> 0.5.1)
       http_accept_language (~> 1.0.2)
       httparty (~> 0.13.5)
       i18n-inflector-rails (~> 1.0)
-      jquery-rails (= 2.2.2)
+      jquery-rails (~> 3.1.1)
       jquery-ui-bootstrap-rails-asset (~> 0.0.3)
       json (~> 1.8.1)
       koala (~> 1.8.0)
@@ -79,38 +95,20 @@ GIT
       will_paginate_mongoid (~> 2.0.1)
       zip-zip (~> 0.2)
 
-GIT
-  remote: git://github.com/volontariat/voluntary_recruiting.git
-  revision: abc2221b13f06f41f82d6cd2d1f63ecfa9dddd5d
+PATH
+  remote: ../../voluntary_recruiting
   specs:
     voluntary_recruiting (0.0.1)
-      voluntary (~> 0.5)
-
-GIT
-  remote: https://github.com/binarylogic/settingslogic.git
-  revision: 0ae134bc6b93463bb0bc406e5b0df82ed07fc53f
-  specs:
-    settingslogic (2.0.9)
-
-GIT
-  remote: https://github.com/pivotal/jasmine-gem.git
-  revision: d5e0d6aba6391c6592591c6ad3bb15c1d0975393
-  specs:
-    jasmine (2.3.1)
-      jasmine-core (~> 2.3)
-      phantomjs
-      rack (>= 1.2.1)
-      rake
+      voluntary (~> 0.7)
 
 PATH
   remote: /Users/gawlim/workspace/voluntary/voluntary_classified_advertisement
   specs:
-    voluntary_classified_advertisement (0.2.0)
-      voluntary (~> 0.5)
+    voluntary_classified_advertisement (0.3.0)
+      voluntary (~> 0.7)
       voluntary_recruiting (~> 0.0)
 
 GEM
-  remote: http://gems.github.com/
   remote: http://rubygems.org/
   specs:
     actionmailer (4.2.4)
@@ -175,7 +173,7 @@ GEM
       bootstrap-sass (~> 3.1.0.0)
       railties (>= 3.2.0)
       sass-rails (>= 3.2.0)
-    bson (3.2.4)
+    bson (3.2.6)
     builder (3.2.2)
     byebug (4.0.5)
       columnize (= 0.9.0)
@@ -190,7 +188,7 @@ GEM
     capybara-webkit (0.13.2)
       capybara (>= 1.0.0, < 1.2)
       json
-    childprocess (0.5.6)
+    childprocess (0.5.7)
       ffi (~> 1.0, >= 1.0.11)
     codeclimate-test-reporter (0.4.8)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -255,7 +253,7 @@ GEM
       railties (>= 3.0.0)
     faker (1.2.0)
       i18n (~> 0.5)
-    faraday (0.9.1)
+    faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.9.2)
       faraday (>= 0.7.4, < 0.10)
@@ -272,6 +270,9 @@ GEM
     formatador (0.2.5)
     friendly_id (5.0.5)
       activerecord (>= 4.0.0)
+    fullcalendar-rails (2.4.0.0)
+      jquery-rails (>= 3.1.1, < 5.0.0)
+      momentjs-rails (>= 2.9.0)
     gherkin (2.12.2)
       multi_json (~> 1.3)
     globalid (0.3.6)
@@ -301,7 +302,7 @@ GEM
       sprockets (>= 2.0.0, < 4.0)
       tilt (~> 1.2)
     has_scope (0.5.1)
-    hashie (3.4.2)
+    hashie (3.4.3)
     hodel_3000_compliant_logger (0.1.1)
     http_accept_language (1.0.2)
     httparty (0.13.7)
@@ -315,14 +316,14 @@ GEM
       i18n-inflector (~> 2.6)
       railties (>= 3.0.0)
     jasmine-core (2.3.4)
-    jquery-rails (2.2.2)
+    jquery-rails (3.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     jquery-ui-bootstrap-rails-asset (0.0.3)
       bootstrap-sass-rails
       railties (>= 3.1.0)
     json (1.8.3)
-    jwt (1.5.1)
+    jwt (1.5.2)
     koala (1.8.0)
       addressable
       faraday
@@ -331,7 +332,7 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.0.0)
       launchy (>= 2.0.4)
-    libv8 (3.16.14.11)
+    libv8 (3.16.14.13)
     libwebsocket (0.1.8)
       addressable
       websocket
@@ -350,7 +351,9 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.6.2)
-    minitest (5.8.1)
+    minitest (5.8.2)
+    momentjs-rails (2.10.6)
+      railties (>= 3.1)
     mongoid (4.0.2)
       activemodel (~> 4.0)
       moped (~> 2.0.0)
@@ -404,7 +407,7 @@ GEM
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
-    omniauth-oauth2 (1.3.1)
+    omniauth-oauth2 (1.4.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     optionable (0.2.0)
@@ -417,7 +420,7 @@ GEM
     phantomjs (1.9.8.0)
     protected_attributes (1.0.9)
       activemodel (>= 4.0.1, < 5.0)
-    pry (0.10.2)
+    pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
@@ -449,8 +452,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
-    rails-i18n (4.0.5)
-      i18n (~> 0.6)
+    rails-i18n (4.0.6)
+      i18n (~> 0.7)
       railties (~> 4.0)
     rails_autolink (1.1.6)
       rails (> 3.1)
@@ -498,7 +501,7 @@ GEM
       rspec-mocks (~> 2.99.0)
     rubyzip (1.1.7)
     safe_yaml (1.0.4)
-    sass (3.4.18)
+    sass (3.4.19)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
@@ -534,7 +537,7 @@ GEM
     slop (3.6.0)
     spork (1.0.0rc4)
     spring (1.4.0)
-    sprockets (3.3.5)
+    sprockets (3.4.0)
       rack (> 1, < 3)
     sprockets-rails (2.3.3)
       actionpack (>= 3.0)

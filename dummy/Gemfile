@@ -1,10 +1,9 @@
-source 'http://gems.github.com'
 source 'http://rubygems.org'
 
 gemspec path: File.expand_path(File.dirname(__FILE__) + '/../')
 
-gem 'voluntary', github: 'volontariat/voluntary'
-gem 'voluntary_recruiting', github: 'volontariat/voluntary_recruiting'
+gem 'voluntary', path: '../../voluntary' #github: 'volontariat/voluntary'
+gem 'voluntary_recruiting', path: '../../voluntary_recruiting' #github: 'volontariat/voluntary_recruiting'
 
 # core
 gem 'rack-cors', '~> 0.2.4', require: 'rack/cors'
