@@ -3,6 +3,7 @@ en:
     save:
       vacancy_invalid: Vacancy form is invalid!
     show:
+      vacancy_title: Vacancy title
       change_signing: Change signing
         
     sign_up:
