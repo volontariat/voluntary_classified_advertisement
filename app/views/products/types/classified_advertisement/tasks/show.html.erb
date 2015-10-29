@@ -1,0 +1,42 @@
+<% accepted_candidatures_amount = resource.vacancy.calculate_accepted_candidatures_amount %>
+<% signed_up = Candidature.where(user_id: current_user.id, vacancy_id: resource.vacancy_id).any? %>
+<h3><%= resource.name %></h3>
+
+<% if resource.text.present? %>
+  <%= markdown resource.text %>
+<% end %>
+
+<dl class="dl-horizontal">
+  <%= show_attribute :vacancy_title, title: t('tasks.show.vacancy_title'), value: resource.vacancy.name %>
+  <%= show_attribute :from, title: t('attributes.from'), value: resource.from ? l(resource.from, format: :default) : '-' %>
+  <%= show_attribute :to, title: t('attributes.to'), value: resource.to ? l(resource.to, format: :default) : '-' %>
+  <%= show_attribute :limit, title: t('activerecord.attributes.vacancy.limit'), value: "#{accepted_candidatures_amount} / #{resource.vacancy.limit ? resource.vacancy.limit : '∞'}" %>
+  <%= show_attribute :sign_up, title: t('general.sign_up') + ' / ' + t('general.sign_out'), value: render(partial: 'products/types/classified_advertisement/tasks/state_switch', locals: { task: resource, accepted_candidatures_amount: accepted_candidatures_amount, signed_up: signed_up }) %>
+  <%= show_actions %>
+</dl>
+
+<% if @task.lat.present? %>
+  <h4><%= t('attributes.address') %></h4>
+  
+  <p><strong><%= t('attributes.string') %>:</strong> <%= resource.address %></p>
+  
+  <% if resource.address_description.present? %>
+    <p><strong><%= t('attributes.description') %></strong> <%= resource.address_description %></p>
+  <% end %>
+  
+  <div id="task_map" style="width: 500px; height: 400px; margin-top:15px;"></div>
+  
+  <% content_for :javascript_includes do %>
+    <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+    <%= javascript_include_tag 'voluntary/optional_lib/jquery.location_picker.js' %>
+  <% end %>
+  
+  <% content_for :document_ready do %>
+    $('#task_map').locationpicker({
+      location: { latitude: "<%= @task.lat %>", longitude: "<%= @task.lon %>" },
+      radius: 300
+    });
+  <% end %>
+<% end %>
+
+<p>&nbsp;</p>

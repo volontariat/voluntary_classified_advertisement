@@ -25,27 +25,11 @@
       <td><%= task.from ? l(task.from, format: :default) : '-' %></td>
       <td><%= task.to ? l(task.to, format: :default) : '-' %></td>
       <td>
-        <%= accepted_candidatures_amount %> / <%= task.vacancy.limit || I18n.t('general.unlimited') %>
+        <%= accepted_candidatures_amount %> / <%= task.vacancy.limit || '∞' %>
       </td>
       <% if user_signed_in? %>
       <td>
-        <% if tasks_with_candidatures_of_current_user.include? task.id %>
-          <% if task.vacancy.resource_type == 'Thing' %>
-            <%= link_to t('tasks.show.change_signing'), change_signing_task_path(task.id), class: 'btn btn-warning btn-xs remote_modal_link' %>
-          <% end %>
-          
-          <%= link_to t('general.sign_out'), sign_out_task_path(task.id), method: :delete, remote: true, data: { confirm: t('general.questions.are_you_sure') }, class: 'btn btn-danger btn-xs' %>
-        <% else %>
-          <% if (task.vacancy.limit.blank? || accepted_candidatures_amount < task.vacancy.limit) && !task.vacancy.ended? %>
-            <% if task.vacancy.resource_type == 'User' %>
-              <%= link_to t('general.sign_up'), sign_up_task_path(task.id), method: :put, remote: true, class: 'btn btn-success btn-xs' %>
-            <% else %>
-              <%= link_to t('general.sign_up'), sign_up_task_path(task.id), class: 'btn btn-success btn-xs remote_modal_link' %>
-            <% end %>
-          <% else %>
-            <%= link_to t('general.sign_up'), '#', class: 'btn btn-danger btn-xs disabled' %></a>
-          <% end %>
-        <% end %>
+        <%= render partial: 'products/types/classified_advertisement/tasks/state_switch', locals: { task: task, accepted_candidatures_amount: accepted_candidatures_amount, signed_up: tasks_with_candidatures_of_current_user.include?(task.id) } %>
       </td>
       <% end %>
       <td>
