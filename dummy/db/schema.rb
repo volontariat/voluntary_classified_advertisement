@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022163321) do
+ActiveRecord::Schema.define(version: 20151029170707) do
 
   create_table "areas", force: :cascade do |t|
     t.string   "ancestry",       limit: 255
