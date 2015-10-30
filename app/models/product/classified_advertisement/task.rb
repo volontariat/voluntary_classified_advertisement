@@ -26,7 +26,7 @@ class Product::ClassifiedAdvertisement::Task < ::Task
   end
   
   def vacancy
-    @vacancy ||= new_record? ? vacancy_class.new(task: self) : vacancy_class.find(vacancy_id)
+    @vacancy ||= new_record? ? vacancy_class.new(task: self) : vacancy_class.where(id: vacancy_id).first
   end
   
   def vacancy_class
@@ -102,6 +102,6 @@ class Product::ClassifiedAdvertisement::Task < ::Task
   end
   
   def destroy_non_mongodb_records
-    vacancy.destroy
+    vacancy.try(:destroy)
   end
 end
