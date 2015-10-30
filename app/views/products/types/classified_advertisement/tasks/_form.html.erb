@@ -101,8 +101,13 @@
 <% end %>
 
 <% content_for :document_ready do %>
-  var lat = "<%= @task.lat %>";
-  var lon = "<%= @task.lon %>";
+  <% if @task.lat.present? %>
+    var lat = "<%= @task.lat %>";
+    var lon = "<%= @task.lon %>";
+  <% else %>
+    var lat = "<%= @story.lat %>";
+    var lon = "<%= @story.lon %>";
+  <% end %>
   
   function initLocationPicker(position) {
     options = {
