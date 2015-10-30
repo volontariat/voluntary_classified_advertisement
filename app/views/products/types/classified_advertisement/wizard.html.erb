@@ -32,14 +32,32 @@
 <% end %>
 
 <% content_for :document_ready do %>
-  $('#story_map').locationpicker({
-    location: {latitude: <%= @story.lat ? @story.lat : 'null' %>, longitude: <%= @story.lon ? @story.lon : 'null' %>}, 
-    radius: 300,
-    inputBinding: {
-      latitudeInput: $('#story_lat'),
-      longitudeInput: $('#story_lon'),
-      locationNameInput: $('#story_address')
-    },
-    enableAutocomplete: true
-  });
+  var lat = "<%= @story.lat %>";
+  var lon = "<%= @story.lon %>";
+  
+  function initLocationPicker(position) {
+    options = {
+      radius: 300,
+      inputBinding: {
+        latitudeInput: $('#story_lat'),
+        longitudeInput: $('#story_lon'),
+        locationNameInput: $('#story_address')
+      },
+      enableAutocomplete: true
+    }
+    
+    if(position) {
+      options['location'] = { latitude: position.coords.latitude, longitude: position.coords.longitude }
+    } else if (lat != "") {
+      options['location'] = { latitude: lat, longitude: lon }
+    }
+    
+    $('#story_map').locationpicker(options);
+  }
+  
+  if(lat == "" && navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(initLocationPicker);
+  } else {
+    initLocationPicker(null);
+  }
 <% end %>
