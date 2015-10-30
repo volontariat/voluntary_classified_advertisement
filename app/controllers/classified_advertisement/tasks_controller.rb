@@ -12,7 +12,7 @@ module ClassifiedAdvertisement
         { title: task.name, url: task_path(task), start: task.from.to_s, end: task.to.to_s }
       end
      
-      render json: tasks
+      render json: tasks, root: false
     end
     
     def sign_up_form
