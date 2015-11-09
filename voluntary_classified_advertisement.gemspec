@@ -11,11 +11,11 @@ Gem::Specification.new do |s|
   s.email       = ['gawlista@gmail.com']
   s.homepage    = 'http://github.com/volontariat/voluntary_classified_advertisement'
   s.summary     = 'Classified advertisement plugin for Crowdsourcing management system Voluntary.Software.'
-  s.description = 'Plugin for #Crowdsourcing system Voluntary.Software: http://bit.ly/vca-0-3-0'
+  s.description = 'Plugin for #Crowdsourcing system Voluntary.Software: http://bit.ly/vca-0-3-1'
   s.license     = 'MIT'
   s.files       = Dir['{app,config,db,lib}/**/*'] + ['CHANGELOG.md', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  s.add_dependency 'voluntary', '~> 0.7'
+  s.add_dependency 'voluntary', '>= 0.7.1', '< 1.0'
   s.add_dependency 'voluntary_recruiting', '~> 0.1'
   
   # group :development

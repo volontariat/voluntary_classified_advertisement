@@ -9,9 +9,9 @@ GIT
 
 GIT
   remote: git://github.com/volontariat/voluntary.git
-  revision: 74157f46e15ddc5b1617f085dc639ba0b2e77340
+  revision: d211928d2ef723c890bd93cb48f13425b7dccfa7
   specs:
-    voluntary (0.7.0)
+    voluntary (0.7.1)
       active_model_serializers (~> 0.9.3)
       activerecord-deprecated_finders (~> 1.0.3)
       activerecord-import (~> 0.4.1)
@@ -95,7 +95,7 @@ GIT
 
 GIT
   remote: https://github.com/pivotal/jasmine-gem.git
-  revision: 293cb072d2f19b1534a6472a1a8c6844ffb575ae
+  revision: eb2c7043e0086d078f82a01e882ddead38d8fdc6
   specs:
     jasmine (2.3.1)
       jasmine-core (~> 2.3)
@@ -106,8 +106,8 @@ GIT
 PATH
   remote: .
   specs:
-    voluntary_classified_advertisement (0.3.0)
-      voluntary (~> 0.7)
+    voluntary_classified_advertisement (0.3.1)
+      voluntary (>= 0.7.1, < 1.0)
       voluntary_recruiting (~> 0.1)
 
 GEM
@@ -396,7 +396,7 @@ GEM
     net-ssh (3.0.1)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    netrc (0.10.3)
+    netrc (0.11.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     oauth (0.4.7)
@@ -414,7 +414,7 @@ GEM
       rack (~> 1.0)
     omniauth-facebook (2.0.1)
       omniauth-oauth2 (~> 1.2)
-    omniauth-google-oauth2 (0.2.9)
+    omniauth-google-oauth2 (0.2.10)
       addressable (~> 2.3)
       jwt (~> 1.0)
       multi_json (~> 1.3)

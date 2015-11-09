@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: https://github.com/pivotal/jasmine-gem.git
-  revision: 293cb072d2f19b1534a6472a1a8c6844ffb575ae
+  revision: eb2c7043e0086d078f82a01e882ddead38d8fdc6
   specs:
     jasmine (2.3.1)
       jasmine-core (~> 2.3)
@@ -26,7 +26,7 @@ GIT
 PATH
   remote: ../../voluntary
   specs:
-    voluntary (0.7.0)
+    voluntary (0.7.1)
       active_model_serializers (~> 0.9.3)
       activerecord-deprecated_finders (~> 1.0.3)
       activerecord-import (~> 0.4.1)
@@ -104,8 +104,8 @@ PATH
 PATH
   remote: /Users/gawlim/workspace/voluntary/voluntary_classified_advertisement
   specs:
-    voluntary_classified_advertisement (0.3.0)
-      voluntary (~> 0.7)
+    voluntary_classified_advertisement (0.3.1)
+      voluntary (>= 0.7.1, < 1.0)
       voluntary_recruiting (~> 0.1)
 
 GEM
@@ -377,7 +377,7 @@ GEM
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     mysql2 (0.3.20)
-    netrc (0.10.3)
+    netrc (0.11.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     oauth (0.4.7)
@@ -395,19 +395,19 @@ GEM
       rack (~> 1.0)
     omniauth-facebook (2.0.1)
       omniauth-oauth2 (~> 1.2)
-    omniauth-google-oauth2 (0.2.8)
+    omniauth-google-oauth2 (0.2.10)
       addressable (~> 2.3)
       jwt (~> 1.0)
       multi_json (~> 1.3)
       omniauth (>= 1.1.1)
-      omniauth-oauth2 (>= 1.1.1)
+      omniauth-oauth2 (~> 1.3.1)
     omniauth-lastfm (0.0.6)
       omniauth-oauth (~> 1.0)
       rest-client (>= 1.6.6, < 1.8)
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
-    omniauth-oauth2 (1.4.0)
+    omniauth-oauth2 (1.3.1)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     optionable (0.2.0)

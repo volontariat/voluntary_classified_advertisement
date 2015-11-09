@@ -1,3 +1,10 @@
+## 0.3.1 (November 9, 2015) ##
+
+* Take story location if task location not available.
+* TRY to destroy vacancy after destroying task.
+* Removes root from task events JSON.
+* Init story location with current one.
+
 ## 0.3.0 (October 29, 2015) ##
 
 * [#7](https://github.com/volontariat/voluntary_classified_advertisement/issues/7) Custom task page
