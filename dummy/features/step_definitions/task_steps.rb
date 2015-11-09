@@ -1,29 +1,19 @@
-module TaskFactoryMethods
-  def new_task(name, options = {})
-    factory = options[:factory] || :task
-    attributes = options[:attributes] || {}
-    
-    attributes.merge!({name: name})
-    set_task_defaults(attributes)
-    @task = Factory(factory, attributes)
-    @task.reload
-    
-    @task
-  end
-    
-  def set_task_defaults(attributes)
-    attributes[:story_id] ||= @story.id if @story && !attributes[:story_id]
-  end
+When /^I click the new task link$/ do
+  find(:xpath, '(//a[@class="btn btn-default new_task_link"])[1]').click
 end
 
-World(TaskFactoryMethods)
-
-Given /^a task named "([^\"]*)"$/ do |name|
-  new_task(name)
+When /^I fill in something in the task's name field$/ do
+  find(:xpath, ".//*[@name='task[name]']").set('Dummy')
 end
 
-Then /^I should see the following tasks:$/ do |expected_table|
-  rows = find('table').all('tr')
-  table = rows.map { |r| r.all('th,td').map { |c| c.text.strip } }
-  expected_table.diff!(table)
+When /^I fill in something in the vacancy's name field$/ do
+  find(:xpath, ".//*[@name='task[vacancy_attributes][name]']").set('Dummy')
+end
+
+When /^I click the sign up task link$/ do
+  find(:xpath, '(//a[@class="btn btn-success btn-xs sign_up_task_link"])[1]').click
+end
+
+When /^I click the sign out task link$/ do
+  find(:xpath, '(//a[@class="btn btn-danger btn-xs sign_out_task_link"])[1]').click
 end

@@ -31,7 +31,7 @@ module UserCukeHelpers
   def manual_login
     visit login_page
     login_as @me.name
-    visit user_confirmation_path(confirmation_token: @me.confirmation_token)  
+    #visit user_confirmation_path(confirmation_token: @me.confirmation_token)  
   end
 
   # checks the page content to see, if the login was successful
