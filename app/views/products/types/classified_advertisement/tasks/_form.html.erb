@@ -1,6 +1,6 @@
 <%= simple_form_for(@task, url: @task.new_record? ? tasks_path : task_path(@task), as: :task, html: {class: 'form-vertical', style: 'margin-bottom:15px;'}) do |f| %>
   <%= hidden_field_tag :story_id, @task.story_id %>
-  <%= f.input :name %>  
+  <%= f.input :name, required: true %>  
   <%= f.input :text, as: :text %>
   
   <fieldset class="fieldset" style="border: 1px solid black; padding:15px; margin-top:15px;">
