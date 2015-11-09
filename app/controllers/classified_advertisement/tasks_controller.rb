@@ -6,7 +6,7 @@ module ClassifiedAdvertisement
     
     def events
       @story = Story.find params[:story_id]
-      tasks = @story.tasks.where(:from.gte => params[:start], :to.lt => params[:end])
+      tasks = @story.tasks.where(:from.gte => params[:start])
       
       tasks = tasks.map do |task|
         { title: task.name, url: task_path(task), start: task.from.to_s, end: task.to.to_s }
