@@ -98,7 +98,7 @@ PATH
 PATH
   remote: ../../voluntary_recruiting
   specs:
-    voluntary_recruiting (0.0.1)
+    voluntary_recruiting (0.1.0)
       voluntary (~> 0.7)
 
 PATH
@@ -106,7 +106,7 @@ PATH
   specs:
     voluntary_classified_advertisement (0.3.0)
       voluntary (~> 0.7)
-      voluntary_recruiting (~> 0.0)
+      voluntary_recruiting (~> 0.1)
 
 GEM
   remote: http://rubygems.org/
